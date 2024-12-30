@@ -16,7 +16,7 @@ const fakeData = {
     ],
 };
 
-router.get('/search', (req, res) => {
+router.get('/searchquery', (req, res) => {
     const { query, category } = req.query;
     const results = category === 'all'
         ? Object.values(fakeData).flat()

@@ -10,14 +10,15 @@ document.getElementById('searchForm').addEventListener('submit', async (event) =
     }
 
     try {
-        const response = await axios.get('/search', {
+        const response = await axios.get('/searchquery', {
             params: { query: searchText, category: category },
         });
 
         const results = response.data; // Supponiamo che il server restituisca un array
+        console.log('Results:', results); // Log the results to debug
         displayResults(results);
     } catch (error) {
-        console.error('Errore nella richiesta:', error);
+        console.error('Errore nella richiesta:', error.response ? error.response.data : error.message);
         alert('Errore durante la ricerca. Riprova più tardi.');
     }
 });
@@ -25,6 +26,12 @@ document.getElementById('searchForm').addEventListener('submit', async (event) =
 function displayResults(results) {
     const resultsContainer = document.getElementById('results');
     resultsContainer.innerHTML = ''; // Clear previous results
+
+    if (!Array.isArray(results)) {
+        console.error('Results is not an array:', results);
+        resultsContainer.innerHTML = '<p class="text-center">Errore nei risultati della ricerca.</p>';
+        return;
+    }
 
     if (results.length === 0) {
         resultsContainer.innerHTML = '<p class="text-center">Nessun risultato trovato.</p>';
