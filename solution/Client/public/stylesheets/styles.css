@@ -13,3 +13,6 @@ nav.navbar .nav-link {
     height: auto; /* Lascia che Bootstrap gestisca l'altezza in modo responsivo */
     object-fit: cover; /* Mantieni il ritaglio proporzionato */
 }
+.hidden {
+    display: none;
+}

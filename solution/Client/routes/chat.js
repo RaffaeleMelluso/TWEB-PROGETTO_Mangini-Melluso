@@ -2,20 +2,20 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 
-router.post('/user-login', (req, res) => {
+router.get('/chat', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    res.sendFile(path.join(__dirname, '../public/chat.html'));
+});
+
+router.post('/chat', (req, res) => {
     const { username, role } = req.body;
     if (!username) {
         return res.status(400).send('Username is required');
     }
-    req.session.user = { username, role: role || 'Utente' };
-    res.redirect('/chat-home');
-});
-
-router.get('/chat-home', (req, res) => {
-    if (!req.session.user) {
-        return res.redirect('/user-login');
-    }
-    res.sendFile(path.join(__dirname, '../public/chat.html'));
+    req.session.user = { username, role: role || 'User' };
+    res.redirect('/chat');
 });
 
 router.get('/user-data', (req, res) => {

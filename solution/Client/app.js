@@ -4,11 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var http = require('http');
-var socketIo = require('socket.io');
+
 
 var app = express();
-var server = http.createServer(app);
-var io = socketIo(server);
 
 /** Tutte le dipendenze vengono importate qui */
 var indexRouter = require('./routes/index');
@@ -31,17 +29,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/', searchRouter); // Ensure this line is present
 app.use('/', chatRouter);
-
-/** Setup connessione socket.io */
-io.on('connection', (socket) => {
-  console.log('A user connected');
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
-  });
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
             username: formData.get('username'),
             role: formData.get('role')
         };
-        fetch('/user-login', {
+        fetch('/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = '/chat-home';
+                    window.location.href = '/chat';
                 } else {
                     return response.json().then(data => {
                         throw new Error(data.message);

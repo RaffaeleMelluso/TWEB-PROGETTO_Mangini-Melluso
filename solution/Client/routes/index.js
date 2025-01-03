@@ -13,8 +13,8 @@ router.get('/search', function(req, res, next) {
 });
 
 /* GET login page. */
-router.get('/login', function(req, res, next) {
-  res.sendFile(path.join(__dirname, '../public/login.html'));
+router.get('/chat', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../public/chat.html'));
 });
 
 module.exports = router;

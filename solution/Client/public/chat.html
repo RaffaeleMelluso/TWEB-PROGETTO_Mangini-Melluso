@@ -1,51 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/styles.css">
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/javascripts/chat.js" defer></script>
-</head>
-<body>
-<header class="bg-success text-white p-3">
-    <div class="container d-flex justify-content-between align-items-center">
-        <h1 class="m-0">Rotten Cucumber</h1>
-        <a href="/login" class="btn btn-outline-light">Login</a>
+<html>
+    <head>
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="module" src="socket_io/socket_io.js"></script>
+        <script src="/javascripts/chat.js"></script>
+        <title>Rotten Cucumber</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="stylesheets/styles.css">
+    </head>
+    <!-- Header -->
+    <header class="bg-success text-white p-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="m-0">Rotten Cucumber</h1>
+            <a href="/login" class="btn btn-outline-light">Login</a>
+        </div>
+    </header>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav w-100 d-flex justify-content-between">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#latest">Ultime Uscite</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#top">Top Film</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#oscar">Oscar Awards</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/chat">Chat</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/search">Cerca</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <body onload="init()">
+    <div id="initial_form" class="container d-flex mt-5 justify-content-center align-items-center">
+        <form id= "form" class="w-50 p-4 border rounded bg-light" onsubmit="return false;">
+            <div class="form-group">
+                <label for="name">Your name</label>
+                <input type="text" id="name" name="name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="role">Ruolo</label>
+                <input type="text" id="role" name="role" class="form-control" placeholder="Inserisci il tuo ruolo">
+            </div>
+            <div class="form-group">
+                <label for="roomNo">Your room</label>
+                <div class="input-group">
+                    <input type="text" id="roomNo" name="roomNo" class="form-control">
+                    <div class="input-group-append">
+                        <button id="roomNoGenerator" onclick="generateRoom()" class="btn btn-success">Generate Room</button>
+                    </div>
+                </div>
+            </div>
+            <button id="connect" onclick="connectToRoom()" class="btn btn-success btn-block mt-3">Connect</button>
+        </form>
     </div>
-</header>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav w-100 d-flex justify-content-between">
-                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#latest">Ultime Uscite</a></li>
-                <li class="nav-item"><a class="nav-link" href="#top">Top Film</a></li>
-                <li class="nav-item"><a class="nav-link" href="#oscar">Oscar Awards</a></li>
-                <a href="/chat-home" class="nav-link">Chat</a>
-                <li class="nav-item"><a class="nav-link" href="/search">Cerca</a></li>
-                <li class="nav-item"><a class="nav-link" href="/user-login">Login</a></li>
-            </ul>
+    <div id="chat_interface" class="container mt-4" style="display: none">
+        <div id="chat_container" class="card">
+            <div class="card-header">
+                <h1 class="card-title">Chat</h1>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <span id="who_you_are"></span>, you are chatting in room: <span id="in_room"></span>
+                </div>
+                <div id="chat_history" class="border p-3 mb-3" style="height: 300px; overflow-y: scroll;"></div>
+                <div id="chat_box">
+                    <form onsubmit="return false;" class="d-flex">
+                        <input type="text" id="chat_input" name="chat_input" class="form-control me-2" placeholder="Type your message">
+                        <button id="chat_send" class="btn btn-primary" onclick="sendChatText()">Send</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
-<div class="container py-5">
-    <h1 class="text-center theme p-3">Chat</h1>
-    <div id="welcomeMessage" class="text-center mb-3"></div>
-    <div id="chatContainer" class="border p-3 mb-3" style="height: 300px; overflow-y: scroll;"></div>
-    <form id="chatForm" class="row g-3">
-        <div class="col-md-10">
-            <input type="text" id="message" class="form-control" placeholder="Type a message..." required>
-        </div>
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-primary w-100">Send</button>
-        </div>
-    </form>
-</div>
-</body>
+    </body>
 </html>
