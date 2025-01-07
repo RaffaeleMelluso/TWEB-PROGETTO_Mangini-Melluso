@@ -1,0 +1,70 @@
+html, body {
+    height: 100%; /* Assicura che la pagina occupi sempre il 100% dell'altezza */
+    margin: 0; /* Rimuove margini predefiniti */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar styling (inherited from index) */
+nav.navbar {
+    background-color: #343a40; /* Grigio scuro */
+}
+
+nav.navbar .nav-link {
+    font-size: 1.2rem;
+    text-align: center;
+    flex: 1;
+}
+
+/* Oscar Filter Section */
+#oscarFilter {
+    flex: 1; /* Permette alla sezione dei contenuti di espandersi */
+}
+
+form input {
+    font-size: 1rem;
+    padding: 10px;
+}
+
+#oscarResults .winner-card {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.3s;
+    position: relative;
+}
+
+#oscarResults .winner-card:hover {
+    transform: scale(1.02);
+}
+
+.winner-card h5 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.winner-card p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Badge per vincitori */
+.winner-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #28a745;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+}
+
+footer {
+    margin-top: auto; /* Spinge il footer verso il basso */
+}
