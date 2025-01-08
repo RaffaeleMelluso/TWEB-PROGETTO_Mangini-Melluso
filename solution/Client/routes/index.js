@@ -20,5 +20,9 @@ router.get('/top', function(req, res, next) {
 router.get('/oscar', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../public/oscar.html'));
 });
+/* GET login page. */
+router.get('/chat', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../public/chat.html'));
+});
 
 module.exports = router;

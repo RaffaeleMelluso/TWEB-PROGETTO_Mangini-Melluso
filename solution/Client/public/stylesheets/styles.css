@@ -20,4 +20,6 @@ nav.navbar .nav-link {
     margin: 0 auto; /* Centra il carousel */
     padding: 10px 0; /* Riduci lo spazio verticale attorno */
 }
-
+.hidden {
+    display: none;
+}

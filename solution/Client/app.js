@@ -3,7 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var http = require('http');
 
+
+var app = express();
+
+/** Tutte le dipendenze vengono importate qui */
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -26,6 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/', searchRouter); // Ensure this line is present
+app.use('/', chatRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

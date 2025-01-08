@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * Module dependencies.
+ * Module dependencies. La parte di socket_io arriva da
+ * Week 3.d1 Socket.io chat - Starting point for Solution/app.js
  */
-
+                
 var app = require('../app');
-var debug = require('debug')('client:server');
+var debug = require('debug')('Client:server');
 var http = require('http');
 
 /**
@@ -88,3 +89,16 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+
+/**
+ adding socket_io
+ */
+// increase in pingTimeout is required according to https://github.com/socketio/socket.io/issues/3259
+// a default of 5000 makes disconnection very frequent
+const io = require('socket.io')(server, {
+  pingTimeout: 60000,
+});
+let socket_module = require('../public/socket_io/socket_io.js');
+socket_module.init(io, app);
