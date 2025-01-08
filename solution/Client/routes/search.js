@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 
 const fakeData = {
     movies: [
@@ -15,6 +16,12 @@ const fakeData = {
         { title: 'Christopher Nolan', description: 'Visionary director.', image: 'https://www.corriere.it/methode_image/2022/04/29/Spettacoli/Foto%20Spettacoli/rock%208-cf-cropped-40-0-552-416.jpg' },
     ],
 };
+
+
+router.get('/search', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/search.html'));
+});
+
 
 router.get('/search', (req, res) => {
     const { query, category } = req.query;

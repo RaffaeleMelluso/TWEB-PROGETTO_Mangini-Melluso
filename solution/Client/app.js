@@ -1,23 +1,19 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var http = require('http');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
+const app = express();
 
-var app = express();
-
-/** Tutte le dipendenze vengono importate qui */
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-
-
-var app = express();
-
+/** Import delle rotte */
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 const searchRouter = require('./routes/search');
-app.use('/', searchRouter);
+const chatRouter = require('./routes/chat'); // Import corretto
+const latestRouter = require('./routes/latest');
+const topRouter = require('./routes/top');
+const oscarRouter = require('./routes/oscar');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,18 +25,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+/** Assegnazione delle rotte */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/', searchRouter); // Ensure this line is present
-app.use('/', chatRouter);
+app.use('/search', searchRouter); // Rotta per la ricerca
+app.use('/chat', chatRouter);     // Rotta per la chat
+app.use('/latest', latestRouter); //Rotta per le ultime uscite
+app.use('top', topRouter);        //Rotta per Top 10
+app.use('oscar', oscarRouter);    // Rotta per gli Oscar
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -51,3 +52,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
