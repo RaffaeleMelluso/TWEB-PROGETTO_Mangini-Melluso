@@ -32,8 +32,8 @@ app.use('/users', usersRouter);
 app.use('/search', searchRouter); // Rotta per la ricerca
 app.use('/chat', chatRouter);     // Rotta per la chat
 app.use('/latest', latestRouter); //Rotta per le ultime uscite
-app.use('top', topRouter);        //Rotta per Top 10
-app.use('oscar', oscarRouter);    // Rotta per gli Oscar
+app.use('/top', topRouter);        //Rotta per Top 10
+app.use('/oscar', oscarRouter);    // Rotta per gli Oscar
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

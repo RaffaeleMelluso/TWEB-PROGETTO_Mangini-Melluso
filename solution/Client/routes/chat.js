@@ -4,9 +4,6 @@ const router = express.Router();
 
 
 router.get('/chat', (req, res) => {
-    /* if (!req.session.user) {
-        return res.redirect('/login');
-    }*/
     res.sendFile(path.join(__dirname, '../public/chat.html'));
 });
 

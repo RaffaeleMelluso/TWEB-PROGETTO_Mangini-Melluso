@@ -10,11 +10,11 @@ document.getElementById('searchForm').addEventListener('submit', async (event) =
     }
 
     try {
-        const response = await axios.get('/search', {
+        const response = await axios.get('/search/results', { // Updated endpoint
             params: { query: searchText, category: category },
         });
 
-        const results = response.data; // Supponiamo che il server restituisca un array
+        const results = Array.isArray(response.data) ? response.data : []; // Ensure results is an array
         displayResults(results);
     } catch (error) {
         console.error('Errore nella richiesta:', error);

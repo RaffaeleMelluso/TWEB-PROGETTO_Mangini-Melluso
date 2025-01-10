@@ -17,13 +17,11 @@ const fakeData = {
     ],
 };
 
-
-router.get('/search', (req, res) => {
+router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/search.html'));
 });
 
-
-router.get('/search', (req, res) => {
+router.get('/results', (req, res) => {
     const { query, category } = req.query;
     const results = category === 'all'
         ? Object.values(fakeData).flat()
