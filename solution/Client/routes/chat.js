@@ -1,13 +1,11 @@
 const express = require('express');
-const path = require('path');
 const router = express.Router();
 
-
-router.get('/chat', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/chat.html'));
+router.get('/', (req, res) => {
+    res.render('chat', { title: 'Chat' });
 });
 
-router.post('/chat', (req, res) => {
+router.post('/', (req, res) => {
     const { username, role } = req.body;
     if (!username) {
         return res.status(400).send('Username is required');

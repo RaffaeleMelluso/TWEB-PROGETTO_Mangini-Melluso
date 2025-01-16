@@ -10,14 +10,20 @@ const app = express();
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const searchRouter = require('./routes/search');
-const chatRouter = require('./routes/chat'); // Import corretto
+const chatRouter = require('./routes/chat');
 const latestRouter = require('./routes/latest');
 const topRouter = require('./routes/top');
 const oscarRouter = require('./routes/oscar');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
+// Configura Handlebars
+const exphbs = require('express-handlebars');
+app.engine('hbs', exphbs.engine({
+  extname: 'hbs',
+  defaultLayout: false,
+  partialsDir: path.join(__dirname, 'views', 'partials')
+}));
 app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -25,15 +31,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 /** Assegnazione delle rotte */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/search', searchRouter); // Rotta per la ricerca
-app.use('/chat', chatRouter);     // Rotta per la chat
-app.use('/latest', latestRouter); //Rotta per le ultime uscite
-app.use('/top', topRouter);        //Rotta per Top 10
-app.use('/oscar', oscarRouter);    // Rotta per gli Oscar
+app.use('/search', searchRouter);
+app.use('/chat', chatRouter);
+app.use('/latest', latestRouter);
+app.use('/top', topRouter);
+app.use('/oscar', oscarRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -42,14 +47,10 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
 
 module.exports = app;
-

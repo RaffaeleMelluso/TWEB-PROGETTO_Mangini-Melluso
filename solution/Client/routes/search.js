@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
-
 const fakeData = {
     movies: [
         { title: 'Inception', description: 'A mind-bending thriller.', image: 'https://www.corriere.it/methode_image/2022/04/29/Spettacoli/Foto%20Spettacoli/rock%208-cf-cropped-40-0-552-416.jpg' },
@@ -18,7 +16,7 @@ const fakeData = {
 };
 
 router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/search.html'));
+    res.render('search', { title: 'Cinema Search' });
 });
 
 router.get('/results', (req, res) => {

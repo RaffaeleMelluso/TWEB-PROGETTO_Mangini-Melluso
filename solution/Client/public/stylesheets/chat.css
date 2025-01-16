@@ -1,0 +1,11 @@
+/* per essere sicuri che il footer sia sempre a fondo pagina*/
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body > footer {
+    margin-top: auto;
+}
