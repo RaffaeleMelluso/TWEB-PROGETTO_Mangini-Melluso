@@ -12,8 +12,13 @@
 
 <main class="container my-5">
     <h2 class="text-center mb-4">Ultime Uscite</h2>
-    <div class="row" id="topMovies"></div>
+    <div class="row" id="topMovies">
+        {{#each movies}}
+            {{> movieCard}}
+        {{/each}}
+    </div>
 </main>
+
 
 {{> footer}}
 

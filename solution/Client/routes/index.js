@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/index', function (req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', {
     carousel: [
       { image: '/images/dune.jpeg', alt: 'Dune Poster' },
@@ -17,7 +17,7 @@ router.get('/index', function (req, res, next) {
   });
 });
 
-/* GET Movie page. */
+/* GET movie page */
 router.get('/movie/:id', function (req, res, next) {
   const movies = {
     1: {
@@ -27,7 +27,25 @@ router.get('/movie/:id', function (req, res, next) {
       tagline: 'Un pianeta, una spezia, un destino.',
       description: 'Un film epico di fantascienza ambientato su un pianeta desertico.',
       duration: 155,
-      rating: 8.2
+      rating: 8.2,
+      reviews: [
+        {
+          link: '#',
+          critic: 'John Doe',
+          topCritic: true,
+          review_percentage: 90,
+          review_date: '2023-10-01',
+          review_content: 'An epic and visually stunning film.'
+        },
+        {
+          link: '#',
+          critic: 'Jane Smith',
+          topCritic: false,
+          review_percentage: 85,
+          review_date: '2023-10-02',
+          review_content: 'A compelling story with great performances.'
+        }
+      ]
     },
     2: {
       poster: '/images/pulpfiction.jpg',
@@ -36,7 +54,17 @@ router.get('/movie/:id', function (req, res, next) {
       tagline: 'Storie che si intrecciano.',
       description: 'Un capolavoro di Tarantino che intreccia storie di crimine e redenzione.',
       duration: 154,
-      rating: 8.9
+      rating: 8.9,
+      reviews: [
+        {
+          link: '#',
+          critic: 'Alice Johnson',
+          topCritic: true,
+          review_percentage: 95,
+          review_date: '2023-10-03',
+          review_content: 'A masterpiece of storytelling and direction.'
+        }
+      ]
     },
     3: {
       poster: '/images/tenet.jpeg',
@@ -45,11 +73,21 @@ router.get('/movie/:id', function (req, res, next) {
       tagline: 'Non cercare di capirlo, sentilo.',
       description: 'Un thriller che gioca con il tempo, firmato Christopher Nolan.',
       duration: 150,
-      rating: 7.8
+      rating: 7.8,
+      reviews: [
+        {
+          link: '#',
+          critic: 'Bob Brown',
+          topCritic: false,
+          review_percentage: 80,
+          review_date: '2023-10-04',
+          review_content: 'A mind-bending experience with stunning visuals.'
+        }
+      ]
     }
   };
 
-  const movie = movies[req.params.id] || {};
+  const movie = movies[req.params.id] || { reviews: [] }; // Aggiunto fallback per reviews
   res.render('moviePage', movie);
 });
 

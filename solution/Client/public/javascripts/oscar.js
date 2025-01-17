@@ -43,4 +43,3 @@ document.getElementById("filterForm").addEventListener("submit", (e) => {
     const name = document.getElementById("nameInput").value;
     updateOscarResults({ year, name });
 });
-

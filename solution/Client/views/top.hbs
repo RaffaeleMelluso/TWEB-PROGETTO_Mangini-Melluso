@@ -10,10 +10,13 @@
 <body>
 {{> navbar}}
 
-<!-- Top Movies Section -->
 <main class="container my-5">
-    <h2 class="text-center mb-4">Top 10 Movies</h2>
-    <div class="row" id="topMovies"></div>
+    <h2 class="text-center mb-4">Top 10</h2>
+    <div class="row" id="topMovies">
+        {{#each movies}}
+            {{> movieCard}}
+        {{/each}}
+    </div>
 </main>
 
 {{> footer}}
