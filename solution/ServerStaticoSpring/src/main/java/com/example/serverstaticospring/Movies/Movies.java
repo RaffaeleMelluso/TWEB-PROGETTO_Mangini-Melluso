@@ -1,4 +1,4 @@
-package com.example.serverstaticospring;
+package com.example.serverstaticospring.Movies;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
