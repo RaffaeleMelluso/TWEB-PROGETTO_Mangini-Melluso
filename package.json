@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^1.7.9",
     "express-handlebars": "^8.0.1",
     "mongoose": "^8.9.4",
     "socket.io": "^4.8.1"
