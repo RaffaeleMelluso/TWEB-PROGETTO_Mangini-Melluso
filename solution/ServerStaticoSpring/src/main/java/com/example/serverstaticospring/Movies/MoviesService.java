@@ -1,4 +1,4 @@
-package com.example.serverstaticospring;
+package com.example.serverstaticospring.Movies;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

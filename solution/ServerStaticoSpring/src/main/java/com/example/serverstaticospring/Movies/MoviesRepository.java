@@ -1,4 +1,4 @@
-package com.example.serverstaticospring;
+package com.example.serverstaticospring.Movies;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
