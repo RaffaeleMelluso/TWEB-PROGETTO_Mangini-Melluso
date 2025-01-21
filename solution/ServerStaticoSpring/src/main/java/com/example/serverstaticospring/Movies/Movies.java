@@ -15,7 +15,7 @@ public class Movies {
     private Integer year;
     private String tagline;
 
-    @Column(length = 1000) // Increase the length to 1000
+    @Column(columnDefinition = "TEXT") // Increase the length to 1000
     private String description;
 
     private Integer minute;
