@@ -1,41 +1,47 @@
-// Aspetta che il DOM sia completamente caricato
-document.addEventListener("DOMContentLoaded", function () {
-    // Seleziona il contenitore delle card
-    const topMoviesContainer = document.getElementById("topMovies");
+document.addEventListener("DOMContentLoaded", async () => {
+    const container = document.getElementById('topMovies');
 
-    // Aggiungi eventi di interattività, ad esempio per filtrare le card
-    const filterInput = document.getElementById("filterInput");
-    if (filterInput) {
-        filterInput.addEventListener("input", (e) => {
-            const filterValue = e.target.value.toLowerCase();
+    try {
+        const response = await axios.get('/top/data');
+        const movies = response.data;
 
-            // Filtra le card in base al titolo o al tagline
-            const movieCards = topMoviesContainer.querySelectorAll(".movie-card");
-            movieCards.forEach(card => {
-                const title = card.querySelector("h5").textContent.toLowerCase();
-                const tagline = card.querySelector(".movie-details p:nth-child(2)").textContent.toLowerCase();
+        if (!movies || Object.keys(movies).length === 0) {
+            container.innerHTML = '<p class="text-center text-danger">Nessun dato trovato.</p>';
+            return;
+        }
 
-                // Mostra o nasconde la card in base al filtro
-                if (title.includes(filterValue) || tagline.includes(filterValue)) {
-                    card.style.display = "";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        });
+        container.innerHTML = Object.entries(movies).map(([genre, films]) => `
+            <div class="col-12 mb-4">
+                <h3>${genre}</h3>
+                <div class="row">
+                    ${films.map(film => {
+            const id = film[0]; // Assumi che l'ID sia film[0]
+            const title = film[1] || "Non disponibile";
+            const description = film[2] !== "nan" ? film[2] : "Non disponibile";
+            const rating = film[3] !== -1 ? film[3] : "Non disponibile";
+            const tagline = film[4] !== "nan" ? film[4] : "Non disponibile";
+            const year = film[5] || "Non disponibile";
+
+            return `
+                            <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <img src="${film[6] || '/path/to/default/image.jpg'}" class="card-img-top" alt="${title}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${title} (${year})</h5>
+                                        <p class="card-text">${description}</p>
+                                        <p class="card-text"><small class="text-muted">Rating: ${rating}</small></p>
+                                        <p class="card-text"><small class="text-muted">${tagline}</small></p>
+                                        <a href="/film/${id}" class="btn btn-primary mt-2">Visualizza Dettagli</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+        }).join('')}
+                </div>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('Errore nel caricamento dei film:', error);
+        container.innerHTML = '<p class="text-center text-danger">Errore durante il caricamento dei dati.</p>';
     }
-
-    // Eventuale logica per animazioni o altre interazioni
-    const movieCards = document.querySelectorAll(".movie-card");
-    movieCards.forEach(card => {
-        card.addEventListener("mouseover", () => {
-            card.classList.add("highlight"); // Classe CSS per evidenziare la card
-        });
-
-        card.addEventListener("mouseout", () => {
-            card.classList.remove("highlight");
-        });
-    });
-
-    console.log("Interattività lato client configurata correttamente.");
 });

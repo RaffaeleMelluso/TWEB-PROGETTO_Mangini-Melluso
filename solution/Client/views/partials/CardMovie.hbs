@@ -1,10 +1,12 @@
-{{! Faccio solo una prova --}}
-
-<div class="card mb-3">
-    <img src="{{image}}" class="card-img-top" alt="{{name}}">
-    <div class="card-body">
-        <h5 class="card-title">{{name}} ({{year}})</h5>
-        <p class="card-text">{{description}}</p>
-        <p class="card-text"><small class="text-muted">Rating: {{rating}}</small></p>
+<div class="col-md-4">
+    <div class="card mb-3">
+        <img src="{{image}}" class="card-img-top" alt="{{title}}">
+        <div class="card-body">
+            <h5 class="card-title">{{title}} ({{year}})</h5>
+            <p class="card-text">{{description}}</p>
+            <p class="card-text"><small class="text-muted">Rating: {{rating}}</small></p>
+            <p class="card-text"><small class="text-muted">{{tagline}}</small></p>
+            <a href="/film/{{id}}" class="btn btn-primary mt-2">Visualizza Dettagli</a>
+        </div>
     </div>
 </div>

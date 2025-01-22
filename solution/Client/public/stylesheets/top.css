@@ -28,6 +28,8 @@ body {
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column; /* Disposizione verticale per immagine e contenuto */
     transition: transform 0.3s;
 }
 
@@ -35,15 +37,19 @@ body {
     transform: scale(1.02);
 }
 
+/* Adatta l'immagine al contenitore della card */
 #topMovies img {
-    width: 100%;
-    height: 200px; /* Mantiene un'altezza uniforme */
-    object-fit: cover;
-    border-bottom: 1px solid #ddd;
+    width: 100%; /* Adatta alla larghezza della card */
+    height: auto; /* Mantieni le proporzioni */
+    display: block; /* Assicura che l'immagine si comporti come un blocco */
+    aspect-ratio: 2/3; /* Mantiene un rapporto 2:3 (standard per i poster) */
+    object-fit: cover; /* Riempi il contenitore senza distorsioni */
 }
 
+/* Stile per i dettagli della card */
 #topMovies .movie-details {
     padding: 15px;
+    flex-grow: 1; /* Assicura che i dettagli occupino lo spazio disponibile */
 }
 
 #topMovies .movie-details h5 {
@@ -63,17 +69,4 @@ body {
     font-weight: bold;
     color: #28a745;
     margin-top: 10px;
-}
-
-
-/* per essere sicuri che il footer sia sempre a fondo pagina*/
-html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-body > footer {
-    margin-top: auto;
 }

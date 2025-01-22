@@ -14,6 +14,8 @@ const chatRouter = require('./routes/chat');
 const latestRouter = require('./routes/latest');
 const topRouter = require('./routes/top');
 const oscarRouter = require('./routes/oscar');
+const filmRouter = require('./routes/film'); // Importa la rotta dei film
+
 
 // Configura Handlebars
 const exphbs = require('express-handlebars');
@@ -39,6 +41,8 @@ app.use('/chat', chatRouter);
 app.use('/latest', latestRouter);
 app.use('/top', topRouter);
 app.use('/oscar', oscarRouter);
+app.use('/film', filmRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
