@@ -2,7 +2,6 @@ let name = null;
 let roomNo = null;
 let role = null;
 let chat= io.connect('/chat');
-//@todo declare the news namespace here
 
 
 /**

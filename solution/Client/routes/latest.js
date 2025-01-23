@@ -5,7 +5,7 @@ const axios = require('axios');
 // Endpoint per restituire i dati dei film in formato JSON
 router.get('/data', async (req, res, next) => {
     try {
-        const response = await axios.get('http://localhost:8080/movies/last5bygenre');
+        const response = await axios.get('http://localhost:8080/movies/last10inusa');
         res.json(response.data);
     } catch (error) {
         console.error('Errore durante la richiesta al server Spring Boot:', error.message);

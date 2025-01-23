@@ -10,36 +10,26 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        container.innerHTML = Object.entries(movies).map(([genre, films]) => `
-            <div class="col-12 mb-4">
-                <h3>${genre}</h3>
-                <div class="row">
-                    ${films.map(film => {
-            const id = film[0]; // Assumi che l'ID sia film[0]
-            const title = film[1] || "Non disponibile";
-            const description = film[2] !== "nan" ? film[2] : "Non disponibile";
-            const rating = film[3] !== -1 ? film[3] : "Non disponibile";
-            const tagline = film[4] !== "nan" ? film[4] : "Non disponibile";
-            const year = film[5] || "Non disponibile";
-
-            return `
-                            <div class="col-md-4">
-                                <div class="card mb-3">
-                                    <img src="${film[6] || '/path/to/default/image.jpg'}" class="card-img-top" alt="${title}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${title} (${year})</h5>
-                                        <p class="card-text">${description}</p>
-                                        <p class="card-text"><small class="text-muted">Rating: ${rating}</small></p>
-                                        <p class="card-text"><small class="text-muted">${tagline}</small></p>
-                                        <a href="/film/${id}" class="btn btn-primary mt-2">Visualizza Dettagli</a>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-        }).join('')}
-                </div>
-            </div>
-        `).join('');
+        var htmlContent = '';
+        Object.entries(movies).forEach(function([genre, films]) {
+            htmlContent += '<div class="col-12 mb-4">';
+            htmlContent += '<h3>' + genre + '</h3>';
+            htmlContent += '<div class="row">';
+            films.forEach(function(film) {
+                htmlContent += '<div class="col-md-4">';
+                htmlContent += '<div class="card mb-3">';
+                htmlContent += '<img src="' + film[6] + '" class="card-img-top" alt="' + film[1] + '">';
+                htmlContent += '<div class="card-body">';
+                htmlContent += '<h5 class="card-title">' + film[1] + ' (' + film[5] + ')</h5>';
+                htmlContent += '<p class="card-text">' + film[2] + '</p>';
+                htmlContent += '<p class="card-text"><small class="text-muted">Rating: ' + film[3] + '</small></p>';
+                htmlContent += '<p class="card-text"><small class="text-muted">' + film[4] + '</small></p>';
+                htmlContent += '<a href="/film/' + film[0] + '" class="btn btn-primary mt-2">Visualizza Dettagli</a>';
+                htmlContent += '</div></div></div>';
+            });
+            htmlContent += '</div></div>';
+        });
+        container.innerHTML = htmlContent;
     } catch (error) {
         console.error('Errore nel caricamento dei film:', error);
         container.innerHTML = '<p class="text-center text-danger">Errore durante il caricamento dei dati.</p>';

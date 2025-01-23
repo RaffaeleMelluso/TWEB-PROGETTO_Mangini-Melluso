@@ -17,15 +17,11 @@ public class MoviesController {
     @Autowired
     private MoviesService movieService;
 
-    // Endpoint per gli ultimi 5 film per genere
-    @GetMapping("/last5bygenre")
-    public Map<String, List<Object[]>> getLast5ByGenreWithDetails() {
+    // Endpoint per gli ultimi 10 film usciti in USA
+    @GetMapping("/last10inusa")
+    public Map<String, List<Object[]>> getLast10MoviesInUSA() {
         Map<String, List<Object[]>> result = new HashMap<>();
-        result.put("Action", movieService.getLast5ByGenreWithDetails("Action"));
-        result.put("Horror", movieService.getLast5ByGenreWithDetails("Horror"));
-        result.put("Thriller", movieService.getLast5ByGenreWithDetails("Thriller"));
-        result.put("Comedy", movieService.getLast5ByGenreWithDetails("Comedy"));
-        result.put("Drama", movieService.getLast5ByGenreWithDetails("Drama"));
+        result.put("USA", movieService.getLast10MoviesInUSA());
         return result;
     }
 
