@@ -28,9 +28,9 @@ public class MoviesService {
     @Autowired
     private PostersRepository postersRepository;
 
-    // Metodo per ottenere gli ultimi 5 film per genere
-    public List<Object[]> getLast5ByGenreWithDetails(String genre) {
-        return movieRepository.findLast5ByGenreWithDetails(genre, PageRequest.of(0, 5)).getContent();
+    // Metodo per ottenere gli ultimi 10 film in USA
+    public List<Object[]> getLast10MoviesInUSA() {
+        return movieRepository.findLast10MoviesInUSA();
     }
 
     // Metodo per ottenere i top 5 film per genere
@@ -50,7 +50,7 @@ public class MoviesService {
 
         details.put("name", movie.getName());
         details.put("description", movie.getDescription());
-        details.put("rating", movie.getRating());
+        details.put("rating", movie.getRating() == -1 ? "Sconosciuto" : movie.getRating().toString());
         details.put("tagline", movie.getTagline());
         details.put("year", movie.getYear());
 
@@ -75,7 +75,7 @@ public class MoviesService {
 
         // Ottieni il link del poster
         List<String> posters = postersRepository.findLinksByFilmId(filmId);
-        String posterLink = posters.isEmpty() ? "/path/to/default/image.jpg" : posters.get(0);
+        String posterLink = posters.isEmpty() ? "https://static.displate.com/857x1200/displate/2022-04-15/7422bfe15b3ea7b5933dffd896e9c7f9_46003a1b7353dc7b5a02949bd074432a.jpg" : posters.get(0);
         details.put("image", posterLink);
 
         return details;

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         console.log('Effettuando la richiesta a /latest/data...');
-        const response = await axios.get('/latest/data'); // Richiesta all'endpoint
+        const response = await axios.get('/latest/data');
         console.log('Risposta ricevuta:', response.data);
 
         const movies = response.data;
@@ -13,26 +13,25 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        // Genera le card
-        container.innerHTML = Object.entries(movies).map(([genre, films]) => `
-            <div class="col-12 mb-4">
-                <h3>${genre}</h3>
-                <div class="row">
-                    ${films.map(film => `
-                        <div class="col-md-4">
-                            <div class="card mb-3">
-                                <img src="${film[3]}" class="card-img-top" alt="${film[0]}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${film[0]} (${film[4]})</h5>
-                                    <p class="card-text">${film[1]}</p>
-                                    <p class="card-text"><small class="text-muted">Rating: ${film[2]}</small></p>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `).join('');
+        var htmlContent = '';
+        Object.entries(movies).forEach(function([genre, films]) {
+            htmlContent += '<div class="col-12 mb-4">';
+            htmlContent += '<h3>' + genre + '</h3>';
+            htmlContent += '<div class="row">';
+            films.forEach(function(film) {
+                htmlContent += '<div class="col-md-4">';
+                htmlContent += '<div class="card mb-3">';
+                htmlContent += '<img src="' + film[4] + '" class="card-img-top" alt="' + film[1] + '">';
+                htmlContent += '<div class="card-body">';
+                htmlContent += '<h5 class="card-title">' + film[1] + ' (' + film[5] + ')</h5>';
+                htmlContent += '<p class="card-text">' + film[2] + '</p>';
+                htmlContent += '<p class="card-text"><small class="text-muted">Rating: ' + film[3] + '</small></p>';
+                htmlContent += '<a href="/film/' + film[0] + '" class="btn btn-primary mt-2">Visualizza Dettagli</a>';
+                htmlContent += '</div></div></div>';
+            });
+            htmlContent += '</div></div>';
+        });
+        container.innerHTML = htmlContent;
     } catch (error) {
         console.error('Errore nel caricamento dei film:', error);
         container.innerHTML = '<p class="text-center text-danger">Errore durante il caricamento dei dati.</p>';
