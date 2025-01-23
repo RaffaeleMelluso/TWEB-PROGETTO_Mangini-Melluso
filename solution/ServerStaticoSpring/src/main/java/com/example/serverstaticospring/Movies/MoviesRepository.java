@@ -31,4 +31,26 @@ public interface MoviesRepository extends JpaRepository<Movies, Integer> {
             "WHERE g.genre = ?1 " +
             "ORDER BY m.rating DESC")
     Page<Object[]> findTop5ByGenreWithDetails(String genre, Pageable pageable);
+
+    // query per il poster dei 5 film più recenti
+    @Query(value = "SELECT m.id, p.link " +
+            "FROM Movies m " +
+            "JOIN Posters p ON m.id = p.film_id " +
+            "JOIN Releases r ON m.id = r.film_id " +
+            "WHERE r.date < CURRENT_DATE " +
+            "AND p.link IS NOT NULL " +
+            "ORDER BY r.date DESC " +
+            "LIMIT 5", nativeQuery = true)
+    List<Object[]> findRecentMoviePosters();
+
+
+    // Query per i top 3 con valutazione più alta
+    @Query(value = "SELECT m.id, m.name, m.description, m.rating, p.link " +
+            "FROM Movies m " +
+            "LEFT JOIN Posters p ON m.id = p.film_id " +
+            "WHERE m.rating IS NOT NULL " +
+            "ORDER BY m.rating DESC, m.id ASC " +
+            "LIMIT 3", nativeQuery = true)
+    List<Object[]> findTop3MoviesByRating();
+
 }

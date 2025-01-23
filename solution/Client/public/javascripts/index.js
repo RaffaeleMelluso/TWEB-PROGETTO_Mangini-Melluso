@@ -1,4 +1,3 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Pagina caricata correttamente."); // Eventuale debug
+    console.log("Carousel configurato correttamente!");
 });
-

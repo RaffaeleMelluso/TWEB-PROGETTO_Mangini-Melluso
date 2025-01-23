@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +52,21 @@ public class MoviesController {
         }
 
         return ResponseEntity.ok(details);
+    }
+
+    @GetMapping("/recentWithPosters")
+    public ResponseEntity<List<Map<String, String>>> getRecentMoviePosters() {
+        List<Object[]> movies = movieService.getRecentMoviePosters();
+        List<Map<String, String>> result = new ArrayList<>();
+
+        for (Object[] movie : movies) {
+            Map<String, String> movieData = new HashMap<>();
+            movieData.put("id", movie[0].toString());
+            movieData.put("poster", movie[1].toString());
+            result.add(movieData);
+        }
+
+        return ResponseEntity.ok(result);
     }
 
 

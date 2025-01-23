@@ -38,6 +38,18 @@ public class MoviesService {
         return movieRepository.findTop5ByGenreWithDetails(genre, PageRequest.of(0, 5)).getContent();
     }
 
+    // Metodo per ottenere i top 3 film recenti con poster
+    public List<Object[]> getRecentMoviePosters() {
+        return movieRepository.findRecentMoviePosters();
+    }
+
+
+    // Metodo per ottenere i top 3 film per rating
+    public List<Object[]> getTop3MoviesByRating() {
+        return movieRepository.findTop3MoviesByRating();
+    }
+
+
     // Metodo per ottenere i dettagli del film
     public Map<String, Object> getMovieDetails(Integer filmId) {
         Map<String, Object> details = new HashMap<>();

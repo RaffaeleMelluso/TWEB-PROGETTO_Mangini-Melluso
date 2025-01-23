@@ -10,16 +10,33 @@ nav.navbar .nav-link {
 }
 
 #movieCarousel .carousel-inner img {
-    height: 300px; /* Regola l'altezza delle immagini per un carousel più orizzontale */
+    height: auto; /* Adjust height to auto to maintain aspect ratio */
     width: 100%; /* Mantieni le immagini responsive */
-    object-fit: cover; /* Assicura che le immagini siano ritagliate proporzionalmente */
+    object-fit: contain; /* Ensure the entire image is visible */
 }
 
 #movieCarousel {
-    max-width: 900px; /* Mantieni la larghezza già definita in stile inline */
+    max-width: 200px; /* Further reduce the maximum width */
     margin: 0 auto; /* Centra il carousel */
     padding: 10px 0; /* Riduci lo spazio verticale attorno */
 }
+
 .hidden {
     display: none;
+}
+
+/* per essere sicuri che il footer sia sempre a fondo pagina*/
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body > footer {
+    margin-top: auto;
+}
+
+footer {
+    margin-top: auto; /* Spinge il footer verso il basso */
 }
