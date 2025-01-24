@@ -7,21 +7,21 @@ router.get('/', async function (req, res, next) {
     const response = await axios.get('http://localhost:8080/movies/recentWithPosters');
     const movies = response.data;
 
-    // Log for debugging
-    console.log('Data received from backend:', movies);
+    const top3Response = await axios.get('http://localhost:8080/movies/top3byrating');
+    const top3Movies = top3Response.data;
+
+    console.log('Top 3 Movies:', top3Movies);
 
     const carouselData = movies.map(movie => ({
-      image: movie.poster, // Link to the poster
-      alt: `Movie ${movie.id}` // ID as alt text
+      image: movie.poster,
+      alt: `Movie ${movie.id}`
     }));
 
-    res.render('index', { carousel: carouselData });
+    res.render('index', { carousel: carouselData, features: top3Movies });
   } catch (error) {
     console.error('Error loading recent movies:', error.message);
     res.status(500).send('Server error');
   }
 });
-
-
 
 module.exports = router;

@@ -49,7 +49,6 @@ public class MoviesService {
         return movieRepository.findTop3MoviesByRating();
     }
 
-
     // Metodo per ottenere i dettagli del film
     public Map<String, Object> getMovieDetails(Integer filmId) {
         Map<String, Object> details = new HashMap<>();

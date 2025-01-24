@@ -69,5 +69,21 @@ public class MoviesController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/top3byrating")
+    public ResponseEntity<List<Map<String, String>>> getTop3MoviesByRating() {
+        List<Object[]> movies = movieService.getTop3MoviesByRating();
+        List<Map<String, String>> result = new ArrayList<>();
 
+        for (Object[] movie : movies) {
+            Map<String, String> movieData = new HashMap<>();
+            movieData.put("id", movie[0].toString());
+            movieData.put("name", movie[1].toString());
+            movieData.put("description", movie[2].toString());
+            movieData.put("rating", movie[3].toString());
+            movieData.put("poster", movie[4].toString());
+            result.add(movieData);
+        }
+
+        return ResponseEntity.ok(result);
+    }
 }

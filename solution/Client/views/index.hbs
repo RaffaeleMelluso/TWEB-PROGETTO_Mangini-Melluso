@@ -10,51 +10,67 @@
 <body>
 {{> navbar}}
 
-<!-- Carousel -->
-{{#if carousel.length}}
-    <div id="movieCarousel" class="carousel slide my-4 mx-auto" data-bs-ride="carousel" style="max-width: 900px;">
-        <div class="carousel-indicators">
-            {{#each carousel}}
-                <button type="button" data-bs-target="#movieCarousel" data-bs-slide-to="{{@index}}" class="{{#if @first}}active{{/if}}" aria-current="{{#if @first}}true{{/if}}" aria-label="Slide {{@index}}"></button>
-            {{/each}}
+<main class="container">
+    <div class="carousel-titles text-center my-5">
+        <h1>Scopri gli ultimi film</h1>
+        <h2>E lasciati soprendere!</h2>
+    </div>
+    <!-- Carousel -->
+    {{#if carousel.length}}
+        <div id="movieCarousel" class="carousel slide my-4 mx-auto" data-bs-ride="carousel" style="max-width: 900px;">
+            <div class="carousel-indicators">
+                {{#each carousel}}
+                    <button type="button" data-bs-target="#movieCarousel" data-bs-slide-to="{{@index}}" class="{{#if @first}}active{{/if}}" aria-current="{{#if @first}}true{{/if}}" aria-label="Slide {{@index}}"></button>
+                {{/each}}
+            </div>
+            <div class="carousel-inner">
+                {{#each carousel}}
+                    <div class="carousel-item {{#if @first}}active{{/if}}">
+                        <img src="{{this.image}}" class="d-block w-100 img-fluid" alt="{{this.alt}}">
+                    </div>
+                {{/each}}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <div class="carousel-inner">
-            {{#each carousel}}
-                <div class="carousel-item {{#if @first}}active{{/if}}">
-                    <img src="{{this.image}}" class="d-block w-100 img-fluid" alt="{{this.alt}}">
+    {{else}}
+        <p class="text-center">No movies available for the carousel.</p>
+    {{/if}}
+
+    <div class="features-titles my-5">
+        <h1>Scopri quali sono i migliori film!</h1>
+    </div>
+
+
+    <!-- Feature Sections -->
+    <div class="container feature-section">
+        <div class="row text-center">
+            {{#each features}}
+                <div class="col-12 col-md-4">
+                    <div class="card">
+                        <a href="/film/{{id}}" class="text-decoration-none">
+                            <img class="rounded-circle mb-3 img-fluid" src="{{poster}}" alt="{{name}}">
+                            <h2>{{name}}</h2>
+                        </a>
+                        <p>{{description}}</p>
+                    </div>
                 </div>
             {{/each}}
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
-{{else}}
-    <p class="text-center">Nessun film disponibile per il carousel.</p>
-{{/if}}
-
-<!-- Feature Sections -->
-<div class="container marketing my-5">
-    <div class="row text-center">
-        {{#each features}}
-            <div class="col-12 col-md-4">
-                <a href="/movie/{{id}}" class="text-decoration-none">
-                    <img class="rounded-circle mb-3 img-fluid" src="{{image}}" alt="{{title}}" width="140" height="140">
-                    <h2>{{title}}</h2>
-                </a>
-                <p>{{description}}</p>
-            </div>
-        {{/each}}
-    </div>
-</div>
+</main>
 
 {{> footer}}
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&family=Cinzel:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
 </body>
 </html>
