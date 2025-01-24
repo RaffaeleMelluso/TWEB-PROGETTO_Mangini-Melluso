@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -52,5 +53,13 @@ public interface MoviesRepository extends JpaRepository<Movies, Integer> {
             "ORDER BY m.rating DESC, m.id ASC " +
             "LIMIT 3", nativeQuery = true)
     List<Object[]> findTop3MoviesByRating();
+
+    @Query("SELECT DISTINCT m, p.link FROM Movies m " +
+            "LEFT JOIN Posters p ON m.id = p.film_id " +
+            "JOIN Genres g ON m.id = g.film_id " +
+            "WHERE (:name IS NULL OR LOWER(m.name) LIKE LOWER(CONCAT('%', :name, '%'))) " +
+            "AND (:genre IS NULL OR LOWER(g.genre) LIKE LOWER(CONCAT('%', :genre, '%')))")
+    List<Object[]> findByNameAndGenreWithPoster(@Param("name") String name, @Param("genre") String genre, Pageable pageable);
+
 
 }

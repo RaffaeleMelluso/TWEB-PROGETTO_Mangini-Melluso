@@ -10,7 +10,7 @@ async function updateOscarResults(filters) {
     resultsDiv.innerHTML = "";
 
     try {
-        const response = await fetch('/oscar/search?year=' + filters.year + '&name=' + filters.name);
+        const response = await fetch('/oscar/searchtool?year=' + filters.year + '&name=' + filters.name);
         const data = await response.json();
 
         if (data.length > 0) {

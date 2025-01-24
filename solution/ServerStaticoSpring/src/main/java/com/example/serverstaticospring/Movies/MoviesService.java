@@ -6,6 +6,7 @@ import com.example.serverstaticospring.posters.PostersRepository;
 import com.example.serverstaticospring.studios.StudiosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -49,6 +50,7 @@ public class MoviesService {
         return movieRepository.findTop3MoviesByRating();
     }
 
+
     // Metodo per ottenere i dettagli del film
     public Map<String, Object> getMovieDetails(Integer filmId) {
         Map<String, Object> details = new HashMap<>();
@@ -65,12 +67,12 @@ public class MoviesService {
         details.put("tagline", movie.getTagline());
         details.put("year", movie.getYear());
 
-        // Ottieni il regista
-        String director = crewRepository.findDirectorByFilmId(filmId);
-        details.put("director", director != null ? director : "Non disponibile");
+        // Ottieni i registi
+        List<String> directors = crewRepository.findDirectorByFilmId(filmId);
+        details.put("directors", directors.isEmpty() ? List.of("Non disponibile") : directors);
 
-        // Ottieni i primi 3 attori
-        List<Object[]> actors = actorsRepository.findTop3ActorsByFilmId(filmId);
+        // Ottieni tutti gli attori
+        List<Object[]> actors = actorsRepository.findAllActorsByFilmId(filmId);
         List<Map<String, String>> actorDetails = new ArrayList<>();
         for (Object[] actor : actors) {
             Map<String, String> actorMap = new HashMap<>();
@@ -78,7 +80,7 @@ public class MoviesService {
             actorMap.put("role", (String) actor[1]);
             actorDetails.add(actorMap);
         }
-        details.put("actors", actorDetails.size() > 3 ? actorDetails.subList(0, 3) : actorDetails);
+        details.put("actors", actorDetails);
 
         // Ottieni gli studios
         List<String> studios = studiosRepository.findStudiosByFilmId(filmId);
@@ -91,6 +93,33 @@ public class MoviesService {
 
         return details;
     }
+    public List<Map<String, Object>> searchMovies(String name, String genre) {
+        Pageable limit = PageRequest.of(0, 20);
+        List<Object[]> results = movieRepository.findByNameAndGenreWithPoster(name, genre, limit);
+        List<Map<String, Object>> movies = new ArrayList<>();
+
+        for (Object[] result : results) {
+            Movies movie = (Movies) result[0];
+            String posterLink = (String) result[1];
+
+            Map<String, Object> movieDetails = new HashMap<>();
+            movieDetails.put("id", movie.getId());
+            movieDetails.put("name", movie.getName());
+            movieDetails.put("year", movie.getYear());
+            movieDetails.put("tagline", movie.getTagline());
+            movieDetails.put("description", movie.getDescription());
+            movieDetails.put("minute", movie.getMinute());
+            movieDetails.put("rating", movie.getRating());
+            movieDetails.put("poster", posterLink != null ? posterLink : "https://static.displate.com/857x1200/displate/2022-04-15/7422bfe15b3ea7b5933dffd896e9c7f9_46003a1b7353dc7b5a02949bd074432a.jpg");
+
+            movies.add(movieDetails);
+        }
+
+        return movies;
+    }
+
+
+
 
 
 }
