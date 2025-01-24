@@ -70,3 +70,31 @@ form input {
 footer {
     margin-top: auto; /* Spinge il footer verso il basso */
 }
+/* Custom styles for movie page */
+.text-primary {
+    color: #28a745 !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-info {
+    color: #17a2b8 !important;
+}
+
+.card-title {
+    font-size: 1.5rem;
+}
+
+.card-text {
+    font-size: 1.1rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+p {
+    font-size: 1.2rem;
+}

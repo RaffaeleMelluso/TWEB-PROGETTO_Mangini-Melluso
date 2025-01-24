@@ -14,7 +14,7 @@ router.get('/', async function (req, res, next) {
 
     const carouselData = movies.map(movie => ({
       image: movie.poster,
-      alt: `Movie ${movie.id}`
+      alt: "Movie"+movie.id
     }));
 
     res.render('index', { carousel: carouselData, features: top3Movies });

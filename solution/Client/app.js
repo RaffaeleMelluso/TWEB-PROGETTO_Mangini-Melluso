@@ -6,7 +6,7 @@ const logger = require('morgan');
 
 const app = express();
 
-/** Import delle rotte */
+/** Import routes */
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const searchRouter = require('./routes/search');
@@ -14,10 +14,9 @@ const chatRouter = require('./routes/chat');
 const latestRouter = require('./routes/latest');
 const topRouter = require('./routes/top');
 const oscarRouter = require('./routes/oscar');
-const filmRouter = require('./routes/film'); // Importa la rotta dei film
+const filmRouter = require('./routes/film');
 
-
-// Configura Handlebars
+// Configure Handlebars
 const exphbs = require('express-handlebars');
 app.engine('hbs', exphbs.engine({
   extname: 'hbs',
@@ -33,7 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-/** Assegnazione delle rotte */
+/** Assign routes */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/search', searchRouter);
@@ -42,7 +41,6 @@ app.use('/latest', latestRouter);
 app.use('/top', topRouter);
 app.use('/oscar', oscarRouter);
 app.use('/film', filmRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

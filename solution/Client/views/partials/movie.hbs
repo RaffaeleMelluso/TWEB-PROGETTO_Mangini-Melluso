@@ -1,29 +1,55 @@
 <div class="container my-5">
-    <h2 class="text-center">{{movie.name}} ({{movie.year}})</h2>
+    <h2 class="text-center text-success">{{movie.name}} ({{movie.year}})</h2>
     <p class="text-center text-muted">{{movie.tagline}}</p>
-    <div class="row my-4">
-        <div class="col-md-6">
-            <img src="{{movie.image}}" alt="{{movie.name}}" class="img-fluid w-100 h-100" style="object-fit: cover;">
+    <div class="row my-4 border-bottom pb-4">
+        <div class="col-md-6 d-flex align-items-stretch mb-4">
+            <div class="card w-100">
+                <img src="{{movie.image}}" alt="{{movie.name}}" class="card-img-top" style="object-fit: cover;">
+            </div>
         </div>
-        <div class="col-md-6">
-            <h5>Descrizione</h5>
-            <p>{{movie.description}}</p>
-            <h5>Rating</h5>
-            <p>{{movie.rating}}</p>
-            <h5>Regista</h5>
-            <p>{{movie.director}}</p>
-            <h5>Attori Principali</h5>
-            <ul>
-                {{#each movie.actors}}
-                    <li>{{this.name}} - {{this.role}}</li>
-                {{/each}}
-            </ul>
-            <h5>Studios</h5>
-            <ul>
-                {{#each movie.studios}}
-                    <li>{{this}}</li>
-                {{/each}}
-            </ul>
+        <div class="col-md-6 mb-4 d-flex flex-column justify-content-between">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-success">Descrizione</h5>
+                    <p class="card-text">{{movie.description}}</p>
+                    <h5 class="card-title text-success">Rating</h5>
+                    <p class="card-text">{{movie.rating}}</p>
+                    <h5 class="card-title text-success">Regista/i</h5>
+                    <ul>
+                        {{#each movie.directors}}
+                            <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-4 border-bottom pb-4">
+        <div class="col-12 mb-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title text-info">Studios</h5>
+                    <div class="row">
+                        {{#each movie.studios}}
+                            <div class="col-md-3 mb-3 border-end border-bottom">
+                                <p>{{this}}</p>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title text-info">Attori</h5>
+                    <div class="row">
+                        {{#each movie.actors}}
+                            <div class="col-md-3 mb-3 border-end border-bottom">
+                                <p>{{this.name}} - {{this.role}}</p>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

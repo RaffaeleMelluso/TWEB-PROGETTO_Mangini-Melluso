@@ -3,10 +3,7 @@ package com.example.serverstaticospring.Movies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,4 +83,14 @@ public class MoviesController {
 
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/search")
+    public List<Map<String, Object>> searchMovies(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String genre) {
+        return movieService.searchMovies(name, genre);
+    }
+
+
+
 }

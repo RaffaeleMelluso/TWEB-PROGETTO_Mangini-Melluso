@@ -1,35 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const fakeData = {
-    movies: [
-        { title: 'Inception', description: 'A mind-bending thriller.', image: 'https://www.corriere.it/methode_image/2022/04/29/Spettacoli/Foto%20Spettacoli/rock%208-cf-cropped-40-0-552-416.jpg' },
-        { title: 'The Matrix', description: 'Sci-fi classic.', image: 'https://www.corriere.it/methode_image/2022/04/29/Spettacoli/Foto%20Spettacoli/rock%208-cf-cropped-40-0-552-416.jpg' },
-        { title: 'Inception2', description: 'A mind-bending thriller.', image: 'https://www.corriere.it/methode_image/2022/04/29/Spettacoli/Foto%20Spettacoli/rock%208-cf-cropped-40-0-552-416.jpg' },
-        { title: 'Inception3', description: 'A mind-bending thriller.', image: 'https://www.corriere.it/methode_image/2022/04/29/Spettacoli/Foto%20Spettacoli/rock%208-cf-cropped-40-0-552-416.jpg' },
-    ],
-    actors: [
-        { title: 'Leonardo DiCaprio', description: 'Award-winning actor.', image: 'https://www.corriere.it/methode_image/2022/04/29/Spettacoli/Foto%20Spettacoli/rock%208-cf-cropped-40-0-552-416.jpg' },
-    ],
-    directors: [
-        { title: 'Christopher Nolan', description: 'Visionary director.', image: 'https://www.corriere.it/methode_image/2022/04/29/Spettacoli/Foto%20Spettacoli/rock%208-cf-cropped-40-0-552-416.jpg' },
-    ],
-};
+const axios = require('axios');
 
-router.get('/', (req, res) => {
-    res.render('search', { title: 'Cinema Search' });
+// Rotta per la pagina di ricerca
+router.get('/', function (req, res, next) {
+    res.render('search', { title: 'Search Page' });
 });
 
-router.get('/results', (req, res) => {
-    const { query, category } = req.query;
-    const results = category === 'all'
-        ? Object.values(fakeData).flat()
-        : fakeData[category] || [];
+// Endpoint per ottenere i dati filtrati dei film
+router.get('/searchtoolpage', async function (req, res) {
+    const name = req.query.name;
+    const genre = req.query.category;
 
-    const filteredResults = results.filter(item =>
-        item.title.toLowerCase().includes(query.toLowerCase())
-    );
-
-    res.json(filteredResults);
+    try {
+        const response = await axios.get('http://localhost:8080/movies/search', {
+            params: {name: name, genre: genre }
+        });
+        res.json(response.data);
+    } catch (error) {
+        console.error('Errore durante la richiesta al server Spring Boot:', error.message);
+        if (error.response) {
+            console.error('Response data:', error.response.data);
+            console.error('Response status:', error.response.status);
+            console.error('Response headers:', error.response.headers);
+        }
+        res.status(500).json({ error: 'Errore nel caricamento dei dati' });
+    }
 });
 
 module.exports = router;

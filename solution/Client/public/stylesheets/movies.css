@@ -1,0 +1,32 @@
+/* Custom styles for movie page */
+.text-primary {
+    color: #28a745 !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-info {
+    color: #17a2b8 !important;
+}
+
+.card-title {
+    font-size: 1.590rem; /* Reduced by 5% from 1.674rem */
+}
+
+.card-text {
+    font-size: 1.148rem; /* Reduced by 5% from 1.209rem */
+}
+
+h2 {
+    font-size: 2.474rem; /* Reduced by 5% from 2.604rem */
+}
+
+p {
+    font-size: 1.237rem; /* Reduced by 5% from 1.302rem */
+}
+
+.card {
+    margin-bottom: 2rem; /* Add margin between cards */
+}

@@ -1,53 +1,43 @@
-document.getElementById('searchForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const searchText = document.getElementById('searchText').value;
-    const category = document.getElementById('categoryDropdown').value;
-
-    if (!searchText) {
-        alert('Inserisci un testo di ricerca!');
-        return;
-    }
-
-    try {
-        const response = await axios.get('/search/results', { // Updated endpoint
-            params: { query: searchText, category: category },
-        });
-
-        const results = Array.isArray(response.data) ? response.data : []; // Ensure results is an array
-        displayResults(results);
-    } catch (error) {
-        console.error('Errore nella richiesta:', error);
-        alert('Errore durante la ricerca. Riprova più tardi.');
-    }
+document.getElementById("searchForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const name = document.getElementById("nameInput").value;
+    const category = document.getElementById("categoryInput").value;
+    await updateSearchResults({ name: name, category: category });
 });
 
-function displayResults(results) {
-    const resultsContainer = document.getElementById('results');
-    resultsContainer.innerHTML = ''; // Clear previous results
+async function updateSearchResults(filters) {
+    const resultsDiv = document.getElementById("searchResults");
+    resultsDiv.innerHTML = "";
 
-    if (results.length === 0) {
-        resultsContainer.innerHTML = '<p class="text-center">Nessun risultato trovato.</p>';
-        return;
+    try {
+        const response = await fetch('/search/searchtoolpage?name=' + filters.name + '&category=' + filters.category);
+        const data = await response.json();
+
+        if (data.length > 0) {
+            data.forEach(function (entry) {
+                const card = document.createElement("div");
+                card.className = "col-12 card-horizontal"; // Full width
+                card.innerHTML =
+                    '<div class="card mb-3" onclick="window.location.href=\'/film/' + entry.id + '\'">' +
+                    '<div class="row g-0">' +
+                    '<div class="col-md-4 card-img-left">' +
+                    '<img src="' + entry.poster + '" class="img-fluid rounded-start" alt="' + entry.name + '">' +
+                    '</div>' +
+                    '<div class="col-md-8">' +
+                    '<div class="card-body">' +
+                    '<h5 class="card-title">' + entry.name + ' (' + entry.year + ')</h5>' +
+                    '<p class="card-text">' + entry.description.substring(0, 100) + '...</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+                resultsDiv.appendChild(card);
+            });
+        } else {
+            resultsDiv.innerHTML = '<p class="text-center text-danger">Nessun dato trovato per i criteri specificati.</p>';
+        }
+    } catch (error) {
+        console.error('Errore nel caricamento dei dati:', error);
+        resultsDiv.innerHTML = '<p class="text-center text-danger">Errore durante il recupero dei dati.</p>';
     }
-
-    results.forEach(function(item) {
-        const cardWrapper = document.createElement('div');
-        cardWrapper.className = 'col-12 mb-3'; // Full width and margin bottom
-
-        const card = document.createElement('div');
-        card.className = 'card d-flex flex-row';
-
-        card.innerHTML =
-            '<div class="card-img-left">' +
-            '<img src="' + item.image + '" class="img-fluid" alt="' + item.title + '">' +
-            '</div>' +
-            '<div class="card-body">' +
-            '<h5 class="card-title">' + item.title + '</h5>' +
-            '<p class="card-text">' + item.description + '</p>' +
-            '</div>';
-
-        cardWrapper.appendChild(card);
-        resultsContainer.appendChild(cardWrapper);
-    });
 }

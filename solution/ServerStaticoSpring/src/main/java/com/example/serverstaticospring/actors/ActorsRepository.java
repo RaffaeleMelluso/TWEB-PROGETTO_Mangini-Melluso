@@ -10,8 +10,8 @@ public interface ActorsRepository extends JpaRepository<Actors, Integer> {
     @Query(value = "SELECT * FROM actors LIMIT 1", nativeQuery = true)
     Actors findFirstActor();
     // trova i primi 3 attori principali
-    @Query("SELECT a.name, a.role FROM Actors a WHERE a.film_id = ?1 ORDER BY a.id ASC")
-    List<Object[]> findTop3ActorsByFilmId(Integer filmId);
+    @Query("SELECT a.name, a.role FROM Actors a WHERE a.film_id = ?1")
+    List<Object[]> findAllActorsByFilmId(Integer filmId);
 
 
 }

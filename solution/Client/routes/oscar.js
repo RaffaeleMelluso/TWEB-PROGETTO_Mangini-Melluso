@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
 });
 
 // Endpoint per ottenere i dati filtrati degli Oscar
-router.get('/search', async function (req, res) {
+router.get('/searchtool', async function (req, res) {
     const year = req.query.year;
     const name = req.query.name;
 
