@@ -16,7 +16,7 @@ async function updateSearchResults(filters) {
         if (data.length > 0) {
             data.forEach(function (entry) {
                 const card = document.createElement("div");
-                card.className = "col-12 card-horizontal"; // Full width
+                card.className = "col-12 card-horizontal";
                 card.innerHTML =
                     '<div class="card mb-3" onclick="window.location.href=\'/film/' + entry.id + '\'">' +
                     '<div class="row g-0">' +
