@@ -50,6 +50,28 @@
                     </div>
                 </div>
             </div>
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title text-info">Paesi di Produzione</h5>
+                    <ul>
+                        {{#each movie.countries}}
+                            <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title text-info">Lingue Disponibili</h5>
+                    <ul>
+                        {{#each movie.languages}}
+                            <li>{{this.language}} ({{this.type}})</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

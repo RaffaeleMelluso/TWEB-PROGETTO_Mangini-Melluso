@@ -1,9 +1,6 @@
 package com.example.serverstaticospring.oscar;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Oscar {
@@ -13,9 +10,16 @@ public class Oscar {
     private Integer year_film;
     private Integer year_ceremony;
     private Integer ceremony;
+
+    @Column(columnDefinition = "TEXT")
     private String category;
+
+    @Column(columnDefinition = "TEXT")
     private String name;
+
+    @Column(columnDefinition = "TEXT")
     private String film;
+
     private Boolean winner; // Tipo corretto per un valore booleano in Java
 
     // Getters e Setters

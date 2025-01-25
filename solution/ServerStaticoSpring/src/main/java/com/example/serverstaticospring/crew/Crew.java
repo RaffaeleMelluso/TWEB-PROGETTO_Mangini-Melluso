@@ -1,9 +1,6 @@
 package com.example.serverstaticospring.crew;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Crew {
@@ -11,7 +8,11 @@ public class Crew {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // Chiave primaria autogenerata
     private Integer film_id;
+
+    @Column(columnDefinition = "TEXT")
     private String name;
+
+    @Column(columnDefinition = "TEXT")
     private String role;
 
     // Getters e Setters

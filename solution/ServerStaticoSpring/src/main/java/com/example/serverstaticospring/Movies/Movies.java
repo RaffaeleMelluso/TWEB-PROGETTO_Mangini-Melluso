@@ -11,8 +11,12 @@ public class Movies {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(columnDefinition = "TEXT")
     private String name;
     private Integer year;
+
+    @Column(columnDefinition = "TEXT")
     private String tagline;
 
     @Column(columnDefinition = "TEXT") // Increase the length to 1000

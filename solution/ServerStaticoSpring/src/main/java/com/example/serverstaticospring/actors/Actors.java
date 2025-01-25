@@ -1,17 +1,18 @@
 package com.example.serverstaticospring.actors;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Actors {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // ID autogenerato dal database
-    private Integer film_id; // Manteniamo anche film_id come colonna
+    private Integer film_id;
+
+    @Column(columnDefinition = "TEXT")
     private String name;
+
+    @Column(columnDefinition = "TEXT")
     private String role;
 
     // Getters e Setters

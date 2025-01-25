@@ -1,9 +1,6 @@
 package com.example.serverstaticospring.countries;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Countries {
@@ -11,6 +8,8 @@ public class Countries {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // Chiave primaria autogenerata
     private Integer film_id;
+
+    @Column(columnDefinition = "TEXT")
     private String country;
 
     // Getters e Setters

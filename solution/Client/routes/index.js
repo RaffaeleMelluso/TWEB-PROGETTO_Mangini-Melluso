@@ -13,8 +13,9 @@ router.get('/', async function (req, res, next) {
     console.log('Top 3 Movies:', top3Movies);
 
     const carouselData = movies.map(movie => ({
+      id: movie.id, // Aggiungi l'ID
       image: movie.poster,
-      alt: "Movie"+movie.id
+      alt: "Movie" + movie.id
     }));
 
     res.render('index', { carousel: carouselData, features: top3Movies });

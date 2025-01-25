@@ -1,10 +1,7 @@
 // Languages.java
 package com.example.serverstaticospring.languages;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Languages {
@@ -12,7 +9,11 @@ public class Languages {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // Chiave primaria autogenerata
     private Integer film_id;
+
+    @Column(columnDefinition = "TEXT")
     private String type;
+
+    @Column(columnDefinition = "TEXT")
     private String language;
 
     // Getters e Setters

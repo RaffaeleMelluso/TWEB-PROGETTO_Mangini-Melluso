@@ -1,7 +1,9 @@
 package com.example.serverstaticospring.Movies;
 
 import com.example.serverstaticospring.actors.ActorsRepository;
+import com.example.serverstaticospring.countries.CountriesRepository;
 import com.example.serverstaticospring.crew.CrewRepository;
+import com.example.serverstaticospring.languages.LanguagesRepository;
 import com.example.serverstaticospring.posters.PostersRepository;
 import com.example.serverstaticospring.studios.StudiosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,12 @@ public class MoviesService {
 
     @Autowired
     private PostersRepository postersRepository;
+
+    @Autowired
+    private CountriesRepository countriesRepository;
+
+    @Autowired
+    private LanguagesRepository languagesRepository;
 
     // Metodo per ottenere gli ultimi 10 film in USA
     public List<Object[]> getLast10MoviesInUSA() {
@@ -62,14 +70,29 @@ public class MoviesService {
         }
 
         details.put("name", movie.getName());
-        details.put("description", movie.getDescription());
+        details.put("description", movie.getDescription().equals("nan") ? "Non disponibile" : movie.getDescription());
         details.put("rating", movie.getRating() == -1 ? "Sconosciuto" : movie.getRating().toString());
-        details.put("tagline", movie.getTagline());
+        details.put("tagline", movie.getTagline().equals("nan") ? "Non disponibile" : movie.getTagline());
         details.put("year", movie.getYear());
 
         // Ottieni i registi
         List<String> directors = crewRepository.findDirectorByFilmId(filmId);
         details.put("directors", directors.isEmpty() ? List.of("Non disponibile") : directors);
+
+        // Ottieni i paesi
+        List<String> countries = countriesRepository.findCountriesByFilmId(filmId);
+        details.put("countries", countries.isEmpty() ? List.of("Non disponibile") : countries);
+
+        // Ottieni le lingue
+        List<Object[]> languages = languagesRepository.findLanguagesByFilmId(filmId);
+        List<Map<String, String>> languageDetails = new ArrayList<>();
+        for (Object[] lang : languages) {
+            Map<String, String> langMap = new HashMap<>();
+            langMap.put("language", (String) lang[1]);
+            langMap.put("type", (String) lang[2]);
+            languageDetails.add(langMap);
+        }
+        details.put("languages", languageDetails);
 
         // Ottieni tutti gli attori
         List<Object[]> actors = actorsRepository.findAllActorsByFilmId(filmId);
@@ -93,6 +116,7 @@ public class MoviesService {
 
         return details;
     }
+
     public List<Map<String, Object>> searchMovies(String name, String genre) {
         Pageable limit = PageRequest.of(0, 20);
         List<Object[]> results = movieRepository.findByNameAndGenreWithPoster(name, genre, limit);
