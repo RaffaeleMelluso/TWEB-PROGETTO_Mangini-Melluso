@@ -25,11 +25,11 @@ router.get('/film/:id/reviews', async (req, res) => {
 
 router.post('/film/:id/reviews', async (req, res) => {
     try {
-        const filmName = req.params.id; // Nome del film
+        const filmName = req.params.movie_title
         const reviewData = req.body; // Dati della recensione
-
+        const filmId = req.params.id; // ID del film
         // Aggiungi la recensione tramite il controller
-        const newReview = await addReview(filmName, reviewData);
+        const newReview = await addReview(filmId, filmName, reviewData);
 
         res.status(201).json(newReview);
     } catch (error) {
