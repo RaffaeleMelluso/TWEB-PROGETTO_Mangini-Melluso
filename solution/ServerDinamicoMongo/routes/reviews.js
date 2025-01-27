@@ -1,18 +1,40 @@
 const express = require('express');
 const router = express.Router();
-const Review = require('../databases/rotten_tomatoes_reviews');
+const { getReviewsByFilmName, addReview } = require('../controllers/reviewController');
 
-// Route to get reviews by film name
 router.get('/film/:id/reviews', async (req, res) => {
     try {
-        const filmName = req.params.id;
-        const reviews = await Review.find({ movie_title: filmName });
+        const filmName = req.params.id; // Nome del film
+        console.log('Richiesta per recensioni del film:', filmName); // Debug
+
+        // Ottieni le recensioni dal controller
+        const reviews = await getReviewsByFilmName(filmName);
+
         if (!reviews || reviews.length === 0) {
-            return res.status(404).json({ message: 'Film not found' });
+            console.log('Nessuna recensione trovata per:', filmName); // Debug
+            return res.status(404).json({ message: 'Film non trovato' });
         }
+
+        // Restituisci i dati in formato JSON
         res.json(reviews);
     } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+        console.error('Errore durante il recupero delle recensioni:', error.message);
+        res.status(500).json({ message: 'Errore durante il recupero delle recensioni' });
+    }
+});
+
+router.post('/film/:id/reviews', async (req, res) => {
+    try {
+        const filmName = req.params.id; // Nome del film
+        const reviewData = req.body; // Dati della recensione
+
+        // Aggiungi la recensione tramite il controller
+        const newReview = await addReview(filmName, reviewData);
+
+        res.status(201).json(newReview);
+    } catch (error) {
+        console.error('Errore durante l\'aggiunta della recensione:', error.message);
+        res.status(500).json({ message: 'Errore durante l\'aggiunta della recensione' });
     }
 });
 

@@ -3,8 +3,10 @@
     {{#if reviews}}
         {{#each reviews}}
             <div class="review mb-4">
-                <h5><a href="{{link}}" target="_blank">{{critic}}</a> {{#if topCritic}}<span class="badge bg-success">Top Critic</span>{{/if}}</h5>
-                <p><strong>Rating:</strong> {{review_percentage}}%</p>
+                <h5><a href="https://www.rottentomatoes.com/{{rotten_tomatoes_link}}" target="_blank">{{critic_name}}</a>
+                    {{#if top_critic}}<span class="badge bg-success">Top Critic</span>{{/if}}
+                </h5>
+                <p><strong>Rating:</strong> {{review_score_percentage}}%</p>
                 <p><strong>Date:</strong> {{review_date}}</p>
                 <p>{{review_content}}</p>
             </div>

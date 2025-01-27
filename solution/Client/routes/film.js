@@ -5,15 +5,36 @@ const axios = require('axios');
 router.get('/:filmId', async (req, res) => {
     try {
         const filmId = req.params.filmId;
-        const response = await axios.get('http://localhost:8080/movies/details/' + filmId);
-        if (!response.data || response.data.error) {
-            res.status(404).render('error', { message: 'Film non trovato' });
-            return;
+
+        // Fetch movie details using filmId
+        const movieResponse = await axios.get(`http://localhost:8080/movies/details/${filmId}`);
+        if (!movieResponse.data || movieResponse.data.error) {
+            return res.status(404).render('error', { message: 'Film not found.' });
         }
-        res.render('moviePage', { movie: response.data });
+
+        const movie = movieResponse.data;
+
+        // Debug: verify movie details
+        console.log('Movie details:', movie);
+
+        // Fetch reviews using movie name
+        let reviews = [];
+        try {
+            const reviewsResponse = await axios.get(`http://localhost:3002/reviews/film/${movie.name}/reviews`);
+            reviews = reviewsResponse.data;
+            console.log('Fetched reviews:', reviews); // Debug
+        } catch (reviewsError) {
+            console.error('Error fetching reviews:', reviewsError.message);
+        }
+
+        // Add reviews to movie
+        movie.reviews = reviews;
+
+        // Render movie page
+        res.render('moviePage', { movie });
     } catch (error) {
-        console.error('Errore nel caricamento del film:', error.message);
-        res.status(500).render('error', { message: 'Errore durante il caricamento del film.' });
+        console.error('Error loading movie:', error.message);
+        res.status(500).render('error', { message: 'Error loading movie.' });
     }
 });
 

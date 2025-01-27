@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../databases/database');
 
 const reviewSchema = new mongoose.Schema({
     rotten_tomatoes_link: String,
@@ -10,8 +10,6 @@ const reviewSchema = new mongoose.Schema({
     review_score: String,
     review_date: String,
     review_content: String,
-});
+}, { collection: 'Review' }); // Specifica il nome esatto della collezione
 
-const Review = mongoose.model('Review', reviewSchema);
-
-module.exports = Review;
+module.exports = mongoose.model('Review', reviewSchema);

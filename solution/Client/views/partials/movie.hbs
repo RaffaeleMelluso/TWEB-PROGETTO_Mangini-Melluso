@@ -74,4 +74,25 @@
 
         </div>
     </div>
+    <!-- New Review Form -->
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title text-info">Aggiungi una Recensione</h5>
+            <form id="reviewForm">
+                <div class="mb-3">
+                    <label for="criticName" class="form-label">Nome del Critico</label>
+                    <input type="text" id="criticName" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="reviewScore" class="form-label">Punteggio</label>
+                    <input type="number" id="reviewScore" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="reviewContent" class="form-label">Contenuto della Recensione</label>
+                    <textarea id="reviewContent" class="form-control" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Invia</button>
+            </form>
+        </div>
+    </div>
 </div>
