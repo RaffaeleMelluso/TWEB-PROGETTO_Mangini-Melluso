@@ -7,7 +7,6 @@ router.get('/film/:id/reviews', async (req, res) => {
         const filmName = req.params.id; // Nome del film
         console.log('Richiesta per recensioni del film:', filmName); // Debug
 
-        // Ottieni le recensioni dal controller
         const reviews = await getReviewsByFilmName(filmName);
 
         if (!reviews || reviews.length === 0) {
@@ -15,7 +14,6 @@ router.get('/film/:id/reviews', async (req, res) => {
             return res.status(404).json({ message: 'Film non trovato' });
         }
 
-        // Restituisci i dati in formato JSON
         res.json(reviews);
     } catch (error) {
         console.error('Errore durante il recupero delle recensioni:', error.message);
@@ -25,10 +23,10 @@ router.get('/film/:id/reviews', async (req, res) => {
 
 router.post('/film/:id/reviews', async (req, res) => {
     try {
-        const filmName = req.params.movie_title
+        const filmName = req.body.movie_title;
         const reviewData = req.body; // Dati della recensione
         const filmId = req.params.id; // ID del film
-        // Aggiungi la recensione tramite il controller
+
         const newReview = await addReview(filmId, filmName, reviewData);
 
         res.status(201).json(newReview);

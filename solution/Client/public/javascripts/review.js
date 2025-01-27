@@ -6,8 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const filmId = window.location.pathname.split('/').pop();
             const filmName = document.getElementById('filmName').textContent;
-            //console.log("id: " + filmId);
-            //console.log("name: " + filmName);
             const criticName = document.getElementById('criticName').value;
             const reviewScorePercentage = document.getElementById('reviewScorePercentage').value;
             const reviewContent = document.getElementById('reviewContent').value;
@@ -18,8 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 review_score_percentage: reviewScorePercentage,
                 review_content: reviewContent,
                 top_critic: topCritic,
-                movie_title: filmId,
-                rotten_tomatoes_link: 'm/' + filmName
+                movie_title: filmName,
+                rotten_tomatoes_link: 'm/' + filmId
             };
 
             try {
