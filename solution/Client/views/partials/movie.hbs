@@ -1,5 +1,6 @@
 <div class="container my-5">
-    <h2 class="text-center text-success">{{movie.name}} ({{movie.year}})</h2>
+    <h2 class="text-center text-success" id="filmName">{{movie.name}}</h2>
+    <h2 class="text-center text-success">({{movie.year}})</h2>
     <p class="text-center text-muted">{{movie.tagline}}</p>
     <div class="row my-4 border-bottom pb-4">
         <div class="col-md-6 d-flex align-items-stretch mb-4">
@@ -74,7 +75,6 @@
 
         </div>
     </div>
-    <!-- New Review Form -->
     <div class="card mt-4">
         <div class="card-body">
             <h5 class="card-title text-info">Aggiungi una Recensione</h5>
@@ -84,12 +84,16 @@
                     <input type="text" id="criticName" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label for="reviewScore" class="form-label">Punteggio</label>
-                    <input type="number" id="reviewScore" class="form-control" required>
+                    <label for="reviewScorePercentage" class="form-label">Punteggio Percentuale</label>
+                    <input type="number" id="reviewScorePercentage" class="form-control" required>
                 </div>
                 <div class="mb-3">
                     <label for="reviewContent" class="form-label">Contenuto della Recensione</label>
                     <textarea id="reviewContent" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="topCritic">
+                    <label class="form-check-label" for="topCritic">Top Critic</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Invia</button>
             </form>

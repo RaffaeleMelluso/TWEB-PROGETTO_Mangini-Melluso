@@ -37,5 +37,34 @@ router.get('/:filmId', async (req, res) => {
         res.status(500).render('error', { message: 'Error loading movie.' });
     }
 });
+router.post('/:filmId/reviews', async (req, res) => {
+    const filmId = req.params.filmId;
+    const reviewData = req.body;
 
+    // Convert review score percentage to a scale of 5
+    const reviewScorePercentage = reviewData.review_score_percentage;
+    const reviewScore = (reviewScorePercentage / 20).toFixed(1) + '/5';
+
+    // Get the current date
+    const reviewDate = new Date().toISOString().split('T')[0];
+
+    // Construct the review payload
+    const reviewPayload = {
+        critic_name: reviewData.critic_name,
+        review_score_percentage: reviewScorePercentage,
+        review_score: reviewScore,
+        review_content: reviewData.review_content,
+        top_critic: reviewData.top_critic,
+        review_date: reviewDate,
+        rotten_tomatoes_link: `m/${filmId}` // Assuming filmId is used for the link
+    };
+
+    try {
+        const response = await axios.post(`http://localhost:3002/reviews/film/${filmId}/reviews`, reviewPayload);
+        res.status(response.status).json(response.data);
+    } catch (error) {
+        console.error('Error forwarding review data:', error.message);
+        res.status(500).json({ message: 'Error forwarding review data' });
+    }
+});
 module.exports = router;
