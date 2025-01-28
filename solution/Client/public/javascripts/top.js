@@ -10,12 +10,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        var htmlContent = '';
-        Object.entries(movies).forEach(function([genre, films]) {
+        let htmlContent = '';
+        Object.entries(movies).forEach(function ([genre, films]) {
             htmlContent += '<div class="col-12 mb-4">';
             htmlContent += '<h3>' + genre + '</h3>';
             htmlContent += '<div class="row">';
-            films.forEach(function(film) {
+            films.forEach(function (film) {
+                // Controlla se la tagline è "nan"
+                const tagline = film[4] === "nan" ? "Non disponibile" : film[4];
+
                 htmlContent += '<div class="col-md-4">';
                 htmlContent += '<div class="card mb-3">';
                 htmlContent += '<img src="' + film[6] + '" class="card-img-top" alt="' + film[1] + '">';
@@ -23,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 htmlContent += '<h5 class="card-title">' + film[1] + ' (' + film[5] + ')</h5>';
                 htmlContent += '<p class="card-text">' + film[2] + '</p>';
                 htmlContent += '<p class="card-text"><small class="text-muted">Rating: ' + film[3] + '</small></p>';
-                htmlContent += '<p class="card-text"><small class="text-muted">' + film[4] + '</small></p>';
+                htmlContent += '<p class="card-text"><small class="text-muted">' + tagline + '</small></p>';
                 htmlContent += '<a href="/film/' + film[0] + '" class="btn btn-primary mt-2">Visualizza Dettagli</a>';
                 htmlContent += '</div></div></div>';
             });

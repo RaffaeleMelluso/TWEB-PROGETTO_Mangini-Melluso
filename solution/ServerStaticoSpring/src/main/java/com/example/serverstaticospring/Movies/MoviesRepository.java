@@ -25,7 +25,7 @@ public interface MoviesRepository extends JpaRepository<Movies, Integer> {
     List<Object[]> findLast10MoviesInUSA();
 
     // Query per i top 5 film con rating più alto per genere
-    @Query("SELECT m.id, m.name, m.description, m.rating, m.tagline, m.year, p.link " +
+    @Query("SELECT m.id, m.name, m.description, m.rating, COALESCE(m.tagline, 'Non disponibile')\n, m.year, p.link " +
             "FROM Movies m " +
             "JOIN Genres g ON m.id = g.film_id " +
             "LEFT JOIN Posters p ON m.id = p.film_id " +
