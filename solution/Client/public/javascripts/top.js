@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const container = document.getElementById('topMovies');
-
+    /*commento*/
     try {
         const response = await axios.get('/top/data');
         const movies = response.data;
