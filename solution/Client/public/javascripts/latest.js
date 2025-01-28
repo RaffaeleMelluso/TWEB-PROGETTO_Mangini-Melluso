@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
         reviewForm.addEventListener('submit', async function (event) {
             event.preventDefault();
 
-            const filmId = window.location.pathname.split('/').pop();
+            const pathSegments = window.location.pathname.split('/');
+            const filmId = pathSegments[pathSegments.length - 1];
             const criticName = document.getElementById('criticName').value;
             const reviewScorePercentage = document.getElementById('reviewScorePercentage').value;
             const reviewContent = document.getElementById('reviewContent').value;
@@ -18,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
             };
 
             try {
-                const response = await fetch(`/film/${filmId}/reviews`, {
+                const url = '/film/' + filmId + '/reviews';
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
