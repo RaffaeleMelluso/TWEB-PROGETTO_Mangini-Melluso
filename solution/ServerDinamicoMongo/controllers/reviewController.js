@@ -3,7 +3,6 @@ const Review = require('../models/Review');
 async function getReviewsByFilmName(filmName) {
     try {
         console.log('Nome del film ricevuto:', filmName); // Debug
-        // Query per trovare le recensioni nel database
         const reviews = await Review.find({ movie_title: filmName });
         console.log('Recensioni trovate:', reviews); // Debug
         return reviews;
@@ -13,11 +12,13 @@ async function getReviewsByFilmName(filmName) {
     }
 }
 
-async function addReview(filmName, reviewData) {
+async function addReview(filmId, filmName, reviewData) {
     try {
+        console.log('Dati della recensione ricevuti:', reviewData); // Debug
         const newReview = new Review({
-            ...reviewData,
-            movie_title: filmName
+            rotten_tomatoes_link: 'm/' + filmId,
+            movie_title: filmName,
+            ...reviewData
         });
 
         await newReview.save();

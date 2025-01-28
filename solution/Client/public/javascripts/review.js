@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
 
             const filmId = window.location.pathname.split('/').pop();
+            const filmName = document.getElementById('filmName').textContent;
             const criticName = document.getElementById('criticName').value;
             const reviewScorePercentage = document.getElementById('reviewScorePercentage').value;
             const reviewContent = document.getElementById('reviewContent').value;
@@ -14,11 +15,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 critic_name: criticName,
                 review_score_percentage: reviewScorePercentage,
                 review_content: reviewContent,
-                top_critic: topCritic
+                top_critic: topCritic,
+                movie_title: filmName,
+                rotten_tomatoes_link: 'm/' + filmId
             };
 
             try {
-                const response = await fetch(`/film/${filmId}/reviews`, {
+                const response = await fetch('/film/' + filmId + '/reviews', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -1,14 +1,27 @@
 <div class="container my-5">
     <h2>Reviews</h2>
-    {{#if reviews}}
+    {{#if reviews.length}}
         {{#each reviews}}
-            <div class="review mb-4">
-                <h5><a href="https://www.rottentomatoes.com/{{rotten_tomatoes_link}}" target="_blank">{{critic_name}}</a>
-                    {{#if top_critic}}<span class="badge bg-success">Top Critic</span>{{/if}}
-                </h5>
-                <p><strong>Rating:</strong> {{review_score_percentage}}%</p>
-                <p><strong>Date:</strong> {{review_date}}</p>
-                <p>{{review_content}}</p>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="card-title">
+                            <a href="https://www.rottentomatoes.com/{{rotten_tomatoes_link}}" target="_blank">{{critic_name}}</a>
+                            {{#if top_critic}}<span class="badge bg-success">Top Critic</span>{{/if}}
+                        </h6>
+                        <p class="card-text"><strong>Date:</strong> {{review_date}}</p>
+                    </div>
+                    <div class="d-flex">
+                        <div class="me-3">
+                            <p class="card-text" style="font-size: 1.5rem;">
+                                <strong>{{#if review_score_percentage}}{{review_score_percentage}}%{{else}}N/A{{/if}}</strong>
+                            </p>
+                        </div>
+                        <p class="card-text" style="font-size: 1.3rem;">
+                            {{#if review_content}}{{review_content}}{{else}}No review content available.{{/if}}
+                        </p>
+                    </div>
+                </div>
             </div>
         {{/each}}
     {{else}}

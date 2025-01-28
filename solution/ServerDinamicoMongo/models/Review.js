@@ -8,8 +8,9 @@ const reviewSchema = new mongoose.Schema({
     publisher_name: String,
     review_type: String,
     review_score: String,
+    review_score_percentage: Number, // Add this line
     review_date: String,
     review_content: String,
-}, { collection: 'Review' }); // Specifica il nome esatto della collezione
+}, { collection: 'Review' });
 
 module.exports = mongoose.model('Review', reviewSchema);

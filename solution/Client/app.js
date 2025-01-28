@@ -15,6 +15,8 @@ const latestRouter = require('./routes/latest');
 const topRouter = require('./routes/top');
 const oscarRouter = require('./routes/oscar');
 const filmRouter = require('./routes/film');
+const reviewRouter = require('./routes/review');
+
 
 // Configure Handlebars
 const exphbs = require('express-handlebars');
@@ -41,6 +43,7 @@ app.use('/latest', latestRouter);
 app.use('/top', topRouter);
 app.use('/oscar', oscarRouter);
 app.use('/film', filmRouter);
+app.use('/film', reviewRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
