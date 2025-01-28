@@ -5,7 +5,18 @@ async function getReviewsByFilmName(filmName) {
         console.log('Nome del film ricevuto:', filmName); // Debug
         const reviews = await Review.find({ movie_title: filmName });
         console.log('Recensioni trovate:', reviews); // Debug
-        return reviews;
+
+        // Replace "nan" strings with an empty string or a specific placeholder
+        const sanitizedReviews = reviews.map(review => {
+            for (const key in review._doc) {
+                if (review._doc[key] === 'nan') {
+                    review._doc[key] = ''; // Replace with an empty string or a specific placeholder
+                }
+            }
+            return review;
+        });
+
+        return sanitizedReviews;
     } catch (error) {
         console.error('Errore durante il recupero delle recensioni:', error.message);
         throw new Error('Errore durante il recupero delle recensioni');
