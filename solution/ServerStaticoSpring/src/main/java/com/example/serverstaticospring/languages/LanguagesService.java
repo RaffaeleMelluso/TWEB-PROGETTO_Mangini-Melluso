@@ -13,6 +13,11 @@ public class LanguagesService {
     @Autowired
     private LanguagesRepository languagesRepository;
 
+    /**
+     * Retrieves a list of languages by the film ID.
+     * @param filmId the ID of the film.
+     * @return a list of languages associated with the film.
+     */
     public List<Map<String, String>> getLanguagesByFilmId(Integer filmId) {
         List<Object[]> results = languagesRepository.findLanguagesByFilmId(filmId);
         List<Map<String, String>> languages = new ArrayList<>();

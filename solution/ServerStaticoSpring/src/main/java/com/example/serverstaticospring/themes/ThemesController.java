@@ -13,6 +13,12 @@ public class ThemesController {
     @Autowired
     private ThemesService themesService;
 
+    /**
+     * Endpoint to get themes by film ID.
+     * Calls the ThemesService to get the data.
+     * @param film_id the ID of the film.
+     * @return a list of themes associated with the film.
+     */
     @GetMapping("/film/{film_id}")
     public List<String> getThemesByFilmId(@PathVariable Integer film_id) {
         return themesService.getThemesByFilmId(film_id);

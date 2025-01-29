@@ -13,6 +13,12 @@ public class PostersController {
     @Autowired
     private PostersService postersService;
 
+    /**
+     * Endpoint to get links to posters by film ID.
+     * Calls the PostersService to retrieve the data.
+     * @param film_id the ID of the film.
+     * @return a list of links to posters associated with the film.
+     */
     @GetMapping("/link/{film_id}")
     public List<String> getLinksByFilmId(@PathVariable Integer film_id) {
         return postersService.getLinksByFilmId(film_id);

@@ -14,6 +14,12 @@ public class CountriesController {
     @Autowired
     private CountriesService countriesService;
 
+    /**
+     * Route called via an HTTP GET request to /countries/{filmId}.
+     * This method calls the CountriesService to get a list of countries by the film ID.
+     * @param filmId the ID of the film.
+     * @return a list of country names associated with the film.
+     */
     @GetMapping("/{filmId}")
     public List<String> getCountriesByFilmId(@PathVariable Integer filmId) {
         return countriesService.getCountriesByFilmId(filmId);

@@ -37,53 +37,73 @@ public class MoviesService {
     @Autowired
     private LanguagesRepository languagesRepository;
 
-    // Metodo per ottenere gli ultimi 10 film in USA
+    /**
+     * Retrieves the last 10 movies released in the USA.
+     * Calls the MoviesRepository to get the data.
+     * @return a list of the last 10 movies released in the USA.
+     */
     public List<Object[]> getLast10MoviesInUSA() {
         return movieRepository.findLast10MoviesInUSA();
     }
 
-    // Metodo per ottenere i top 5 film per genere
+    /**
+     * Retrieves the top 5 movies by genre with details.
+     * Calls the MoviesRepository to get the data.
+     * @param genre the genre of the movies.
+     * @return a list of the top 5 movies by genre with details.
+     */
     public List<Object[]> getTop5ByGenreWithDetails(String genre) {
         return movieRepository.findTop5ByGenreWithDetails(genre, PageRequest.of(0, 5)).getContent();
     }
 
-    // Metodo per ottenere i top 3 film recenti con poster
+    /**
+     * Retrieves the posters of the 5 most recent movies.
+     * Calls the MoviesRepository to get the data.
+     * @return a list of the posters of the 5 most recent movies.
+     */
     public List<Object[]> getRecentMoviePosters() {
         return movieRepository.findRecentMoviePosters();
     }
 
-
-    // Metodo per ottenere i top 3 film per rating
+    /**
+     * Retrieves the top 3 movies by rating.
+     * Calls the MoviesRepository to get the data.
+     * @return a list of the top 3 movies by rating.
+     */
     public List<Object[]> getTop3MoviesByRating() {
         return movieRepository.findTop3MoviesByRating();
     }
 
-
-    // Metodo per ottenere i dettagli del film
+    /**
+     * Retrieves the details of a specific movie.
+     * Calls various repositories to get the data.
+     * @param filmId the ID of the movie.
+     * @return a map containing the movie details.
+     */
     public Map<String, Object> getMovieDetails(Integer filmId) {
         Map<String, Object> details = new HashMap<>();
 
-        // Ottieni i dati base del film
+        // Get basic movie data
         Movies movie = movieRepository.findById(filmId).orElse(null);
         if (movie == null) {
             return null;
         }
-
+        // Gets some movie data after some checks
         details.put("name", movie.getName());
         details.put("description", movie.getDescription().equals("nan") ? "Non disponibile" : movie.getDescription());
         details.put("rating", movie.getRating() == -1 ? "Sconosciuto" : movie.getRating().toString());
         details.put("tagline", movie.getTagline().equals("nan") ? "Non disponibile" : movie.getTagline());
         details.put("year", movie.getYear());
 
-        // Ottieni i registi
+        // Get directors
         List<String> directors = crewRepository.findDirectorByFilmId(filmId);
         details.put("directors", directors.isEmpty() ? List.of("Non disponibile") : directors);
 
-        // Ottieni i paesi
+        // Get countries
         List<String> countries = countriesRepository.findCountriesByFilmId(filmId);
         details.put("countries", countries.isEmpty() ? List.of("Non disponibile") : countries);
 
-        // Ottieni le lingue
+        // Get languages
         List<Object[]> languages = languagesRepository.findLanguagesByFilmId(filmId);
         List<Map<String, String>> languageDetails = new ArrayList<>();
         for (Object[] lang : languages) {
@@ -94,7 +114,7 @@ public class MoviesService {
         }
         details.put("languages", languageDetails);
 
-        // Ottieni tutti gli attori
+        // Get actors
         List<Object[]> actors = actorsRepository.findAllActorsByFilmId(filmId);
         List<Map<String, String>> actorDetails = new ArrayList<>();
         for (Object[] actor : actors) {
@@ -105,11 +125,11 @@ public class MoviesService {
         }
         details.put("actors", actorDetails);
 
-        // Ottieni gli studios
+        // Get studios
         List<String> studios = studiosRepository.findStudiosByFilmId(filmId);
         details.put("studios", studios.isEmpty() ? List.of("Non disponibile") : studios);
 
-        // Ottieni il link del poster
+        // Get poster link
         List<String> posters = postersRepository.findLinksByFilmId(filmId);
         String posterLink = posters.isEmpty() ? "https://static.displate.com/857x1200/displate/2022-04-15/7422bfe15b3ea7b5933dffd896e9c7f9_46003a1b7353dc7b5a02949bd074432a.jpg" : posters.get(0);
         details.put("image", posterLink);
@@ -117,6 +137,13 @@ public class MoviesService {
         return details;
     }
 
+    /**
+     * Searches for movies by name and genre.
+     * Calls the MoviesRepository to get the data.
+     * @param name the name of the movie (optional).
+     * @param genre the genre of the movie (optional).
+     * @return a list of movies matching the search criteria.
+     */
     public List<Map<String, Object>> searchMovies(String name, String genre) {
         Pageable limit = PageRequest.of(0, 20);
         List<Object[]> results = movieRepository.findByNameAndGenreWithPoster(name, genre, limit);
@@ -141,9 +168,4 @@ public class MoviesService {
 
         return movies;
     }
-
-
-
-
-
 }

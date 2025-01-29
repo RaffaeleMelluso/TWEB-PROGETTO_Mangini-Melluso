@@ -1,10 +1,16 @@
 const Review = require('../models/Review');
 
+/***
+ * Function to get reviews by film name.
+ * Called by: GET /film/:id/reviews route in routes/reviews.js
+ * @param {string} filmName - The name of the film to get reviews for.
+ * @returns {Array} - An array of reviews for the specified film.
+ */
 async function getReviewsByFilmName(filmName) {
     try {
-        console.log('Nome del film ricevuto:', filmName); // Debug
+        console.log('Received film name:', filmName); // Debug
         const reviews = await Review.find({ movie_title: filmName });
-        console.log('Recensioni trovate:', reviews); // Debug
+        console.log('Found reviews:', reviews); // Debug
 
         // Replace "nan" strings with an empty string or a specific placeholder
         const sanitizedReviews = reviews.map(review => {
@@ -18,14 +24,22 @@ async function getReviewsByFilmName(filmName) {
 
         return sanitizedReviews;
     } catch (error) {
-        console.error('Errore durante il recupero delle recensioni:', error.message);
-        throw new Error('Errore durante il recupero delle recensioni');
+        console.error('Error retrieving reviews:', error.message);
+        throw new Error('Error retrieving reviews');
     }
 }
 
+/***
+ * Function to add a new review.
+ * Called by: POST /film/:id/reviews route in routes/reviews.js
+ * @param {string} filmId - The ID of the film to add a review for.
+ * @param {string} filmName - The name of the film to add a review for.
+ * @param {Object} reviewData - The data of the review to be added.
+ * @returns {Object} - The newly added review.
+ */
 async function addReview(filmId, filmName, reviewData) {
     try {
-        console.log('Dati della recensione ricevuti:', reviewData); // Debug
+        console.log('Received review data:', reviewData); // Debug
         const newReview = new Review({
             rotten_tomatoes_link: 'm/' + filmId,
             movie_title: filmName,
@@ -33,11 +47,11 @@ async function addReview(filmId, filmName, reviewData) {
         });
 
         await newReview.save();
-        console.log('Nuova recensione aggiunta:', newReview); // Debug
+        console.log('New review added:', newReview); // Debug
         return newReview;
     } catch (error) {
-        console.error('Errore durante l\'aggiunta della recensione:', error.message);
-        throw new Error('Errore durante l\'aggiunta della recensione');
+        console.error('Error adding review:', error.message);
+        throw new Error('Error adding review');
     }
 }
 

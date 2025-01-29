@@ -13,6 +13,12 @@ public class StudiosController {
     @Autowired
     private StudiosService studiosService;
 
+    /**
+     * Endpoint to get studios by film ID.
+     * Calls the StudiosService to retrieve the data.
+     * @param film_id the ID of the film.
+     * @return a list of studios associated with the film.
+     */
     @GetMapping("/film/{film_id}")
     public List<String> getStudiosByFilmId(@PathVariable Integer film_id) {
         return studiosService.getStudiosByFilmId(film_id);

@@ -11,9 +11,14 @@ public class ActorsController {
     @Autowired
     private ActorsService actorsService;
 
+    /**
+     * Route called via an HTTP GET request to /actors/first.
+     * This method calls the ActorsService to get the first actor.
+     * @return the first actor found in the database.
+     */
     @GetMapping("/first")
     public Actors getFirstActor() {
-        // Restituisce il risultato come JSON anziché stamparlo in console
+        // Returns the result as JSON instead of printing it to the console
         return actorsService.getFirstActor();
     }
 }

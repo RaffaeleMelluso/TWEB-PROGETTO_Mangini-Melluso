@@ -14,6 +14,13 @@ public class OscarController {
     @Autowired
     private OscarService oscarService;
 
+    /**
+     * Endpoint to search for Oscars by year and name.
+     * Calls the OscarService to retrieve the data.
+     * @param year the year of the ceremony (optional).
+     * @param name the name of the recipient (optional).
+     * @return a list of Oscars matching the search criteria.
+     */
     @GetMapping("/search")
     public List<Oscar> searchOscars(
             @RequestParam(required = false) Integer year,
