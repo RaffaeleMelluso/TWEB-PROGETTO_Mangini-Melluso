@@ -8,8 +8,11 @@ public class CrewService {
     @Autowired
     private CrewRepository crewRepository;
 
+    /**
+     * Retrieves the first crew member.
+     * @return the first crew member found in the database.
+     */
     public Crew getFirstCrew() {
-        // Recupera direttamente il primo membro della crew tramite il repository
         return crewRepository.findFirstCrew();
     }
 }

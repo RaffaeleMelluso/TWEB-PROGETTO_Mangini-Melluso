@@ -11,9 +11,13 @@ public class CrewController {
     @Autowired
     private CrewService crewService;
 
+    /**
+     * Route called via a GET request to /crew/first.
+     * This method calls the CrewService to get the first crew member.
+     * @return the first crew member found in the database via json.
+     */
     @GetMapping("/first")
     public Crew getFirstCrew() {
-        // Restituisce il primo membro della crew come JSON
         return crewService.getFirstCrew();
     }
 }
