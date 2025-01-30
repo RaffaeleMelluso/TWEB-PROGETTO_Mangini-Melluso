@@ -1,39 +1,70 @@
 {
 	"swagger": "2.0",
 	"info": {
-		"description": "API documentation",
+		"description": "API documentation for Rotten Cucumber. This API provides information about movies, Oscar awards, reviews and chat. There are two servers: one for movies and one for reviews. Chat service is provided by socket.io on the same server of the API.",
+
 		"version": "1.0.0",
-		"title": "API"
+		"title": "Rotten Cucumber API",
+		"contact": {
+			"name": "Raffaele Melluso and Dario Mangini"
+		}
 	},
 	"host": "localhost:3000",
 	"basePath": "/",
 	"tags": [
 		{
-			"name": "movies",
-			"description": "Operations about movies"
+			"name": "Movies",
+			"description": "Here you can find all the operations about movies using the static server, made up in java spring boot"
+		},
+		{
+			"name": "Oscar",
+			"description": "Operations about Oscar awards, made up in java spring boot"
+		},
+		{
+			"name": "Reviews",
+			"description": "Operations about reviews, made up in node.js with mongoDB"
+		},
+		{
+			"name": "Chat",
+			"description": "Operations about chat, made up in node.js with socket.io"
 		}
 	],
 	"paths": {
-		"/movies/details/1000034": {
+		"/movies/details/{filmId}": {
 			"get": {
-				"tags": ["movies"],
+				"tags": ["Movies"],
 				"summary": "Get movie details",
 				"description": "Returns movie details for a given ID",
 				"operationId": "getMovieDetails",
 				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "filmId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"default": 1000034
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "successful operation",
 						"schema": {
 							"$ref": "#/definitions/Movie"
 						}
+					},
+					"404": {
+						"description": "Movie not found"
+					},
+					"500": {
+						"description": "Internal server error"
 					}
 				}
 			}
 		},
 		"/movies/search": {
 			"get": {
-				"tags": ["movies"],
+				"tags": ["Movies"],
 				"summary": "Search movies",
 				"description": "Search movies by name and genre",
 				"operationId": "searchMovies",
@@ -44,14 +75,16 @@
 						"in": "query",
 						"description": "Name of the movie",
 						"required": false,
-						"type": "string"
+						"type": "string",
+						"default": "Inception"
 					},
 					{
 						"name": "genre",
 						"in": "query",
 						"description": "Genre of the movie",
 						"required": false,
-						"type": "string"
+						"type": "string",
+						"default": "Action"
 					}
 				],
 				"responses": {
@@ -63,13 +96,148 @@
 								"$ref": "#/definitions/Movie"
 							}
 						}
+					},
+					"404": {
+						"description": "Movies not found"
+					},
+					"500": {
+						"description": "Internal server error"
 					}
 				}
 			}
 		},
-		"/reviews/film/1000034/reviews": {
+		"/movies/last10inusa": {
+			"get": {
+				"tags": ["Movies"],
+				"summary": "Get last 10 movies in USA",
+				"description": "Returns the last 10 movies released in the USA",
+				"operationId": "getLast10MoviesInUSA",
+				"produces": ["application/json"],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Movie"
+							}
+						}
+					},
+					"404": {
+						"description": "Movies not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			}
+		},
+		"/movies/top5bygenre": {
+			"get": {
+				"tags": ["Movies"],
+				"summary": "Get top 5 movies by genre",
+				"description": "Returns the top 5 movies by genre",
+				"operationId": "getTop5MoviesByGenre",
+				"produces": ["application/json"],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Movie"
+							}
+						}
+					},
+					"404": {
+						"description": "Movies not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			}
+		},
+		"/oscar/search": {
+			"get": {
+				"tags": ["Oscar"],
+				"summary": "Search Oscar awards",
+				"description": "Search Oscar awards by year and name",
+				"operationId": "searchOscarAwards",
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "year",
+						"in": "query",
+						"description": "Year of the Oscar awards",
+						"required": false,
+						"type": "integer",
+						"default": 2020
+					},
+					{
+						"name": "name",
+						"in": "query",
+						"description": "Name of the nominee",
+						"required": false,
+						"type": "string",
+						"default": "Parasite"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Oscar"
+							}
+						}
+					},
+					"404": {
+						"description": "Oscar awards not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			}
+		},
+		"/reviews/film/{filmName}/reviews": {
+			"get": {
+				"tags": ["Reviews"],
+				"summary": "Get reviews for a specific film",
+				"description": "Returns reviews for a specific film",
+				"operationId": "getReviewsForFilm",
+				"produces": ["application/json"],
+				"parameters": [
+					{
+						"name": "filmName",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"default": "Inception"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/Review"
+							}
+						}
+					},
+					"404": {
+						"description": "Reviews not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			},
 			"post": {
-				"tags": ["reviews"],
+				"tags": ["Reviews"],
 				"summary": "Add a review",
 				"description": "Add a review for a specific film",
 				"operationId": "addReview",
@@ -89,6 +257,32 @@
 				"responses": {
 					"201": {
 						"description": "Review created"
+					},
+					"404": {
+						"description": "Film not found"
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			}
+		},
+		"/chat": {
+			"get": {
+				"tags": ["Chat"],
+				"summary": "Get chat page",
+				"description": "Returns the chat page",
+				"operationId": "getChatPage",
+				"produces": ["text/html"],
+				"responses": {
+					"200": {
+						"description": "successful operation"
+					},
+					"404": {
+						"description": "Chat page not found"
+					},
+					"500": {
+						"description": "Internal server error"
 					}
 				}
 			}
@@ -148,6 +342,34 @@
 					"type": "string"
 				}
 			}
+		},
+		"Oscar": {
+			"type": "object",
+			"properties": {
+				"year": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"name": {
+					"type": "string"
+				},
+				"category": {
+					"type": "string"
+				},
+				"winner": {
+					"type": "boolean"
+				}
+			}
 		}
-	}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3002",
+			"description": "Calls for reviews (dynamic server)"
+		},
+		{
+			"url": "http://localhost:8080",
+			"description": "Calls for movies (static server)"
+		}
+	]
 }
