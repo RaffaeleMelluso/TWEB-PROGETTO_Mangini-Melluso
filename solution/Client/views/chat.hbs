@@ -1,12 +1,3 @@
-<!--
-    Rotten Cucumber - Chat Page
-
-    This page provides a real-time chat interface for users.
-    Users can enter a username, role, and join a chat room,
-    or generate a random chat room ID. Messages are sent and
-    received using Socket.io for real-time communication.
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,13 +33,20 @@
                 <input type="text" id="role" name="role" class="form-control" placeholder="Inserisci il tuo ruolo">
             </div>
             <div class="form-group">
-                <label for="roomNo">Stanza</label>
-                <div class="input-group">
-                    <input type="text" id="roomNo" name="roomNo" placeholder="Puoi anche generare una stanza con il pulsante a destra" class="form-control">
-                    <div class="input-group-append">
-                        <button id="roomNoGenerator" onclick="generateRoom()" class="btn btn-success">Genera Stanza</button>
-                    </div>
-                </div>
+                <label for="predefinedRoom">Stanza Preimpostata</label>
+                <select id="predefinedRoom" class="form-select">
+                    <option value="">Seleziona una stanza</option>
+                    <option value="Film Italiani">Film Italiani</option>
+                    <option value="Ultime Uscite">Ultime Uscite</option>
+                    <option value="Premiazioni">Premiazioni</option>
+                    <option value="Attori">Attori</option>
+                    <option value="Generale">Generale</option>
+                    <option value="Fun Facts">Fun Facts</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="roomName">Nome della Nuova Stanza</label>
+                <input type="text" id="roomName" name="roomName" placeholder="Inserisci il nome della nuova stanza" class="form-control">
             </div>
             <button id="connect" onclick="connectToRoom()" class="btn btn-success btn-block mt-3">Connettiti alla Stanza</button>
         </form>
