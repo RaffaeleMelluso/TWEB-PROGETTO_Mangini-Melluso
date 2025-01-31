@@ -1,19 +1,38 @@
+<!--
+    Search Movies Page
+
+    This template renders the movie search page, allowing users to search for
+    movies based on specific criteria. The results are dynamically displayed
+    using JavaScript and Handlebars partials.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Movies</title>
+
+    <!-- Bootstrap for responsive styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom stylesheet for search page -->
     <link rel="stylesheet" href="stylesheets/search.css">
 </head>
 <body>
+
+<!-- Navigation Bar -->
 {{> navbar}}
 
+<!-- Search Form and Results Container (Loaded via Partial) -->
 {{> CardContainer}}
 
 {{> footer}}
+
+<!-- Bootstrap JavaScript for interactive components -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- External JavaScript file for handling movie search functionality -->
 <script src="/javascripts/search.js"></script>
 </body>
 </html>

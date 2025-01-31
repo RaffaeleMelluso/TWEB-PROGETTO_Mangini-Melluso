@@ -1,17 +1,33 @@
+<!--
+    Top Movies Page
+
+    This template renders the 'Top Movies' page, displaying the top-rated movies
+    categorized by genre. The movie data is dynamically loaded via an external script.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top Movies</title>
+
+    <!-- Bootstrap for responsive styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Shared stylesheet for latest and top movies pages -->
     <link rel="stylesheet" href="stylesheets/top.css">
 </head>
 <body>
+
+<!-- Navigation Bar -->
 {{> navbar}}
 
 <main class="container my-5">
+    <!-- Page Header -->
     <h2 class="text-center mb-4">Top Film per Genere</h2>
+
+    <!-- Movies Container: Dynamically populated with top-rated movies -->
     <div class="row" id="topMovies">
         <p class="text-center text-muted">Caricamento in corso...</p>
     </div>
@@ -19,8 +35,11 @@
 
 {{> footer}}
 
+<!-- Bootstrap and Axios for interactive components -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<!-- External JavaScript file to fetch and display top-rated movies -->
 <script src="javascripts/top.js"></script>
 </body>
 </html>

@@ -1,4 +1,12 @@
-/* per essere sicuri che il footer sia sempre a fondo pagina*/
+/*
+ * Oscar Page Styles
+ *
+ * This stylesheet defines styles for the Oscar page,
+ * including layout adjustments, navbar styling, filtering sections,
+ * and result card designs to enhance user experience.
+ */
+
+/* Ensures the footer remains at the bottom of the page */
 html, body {
     height: 100%;
     margin: 0;
@@ -12,7 +20,7 @@ body > footer {
 
 /* Navbar styling (inherited from index) */
 nav.navbar {
-    background-color: #343a40; /* Grigio scuro */
+    background-color: #343a40; /* Dark gray for contrast */
 }
 
 nav.navbar .nav-link {
@@ -23,7 +31,7 @@ nav.navbar .nav-link {
 
 /* Oscar Filter Section */
 #oscarFilter {
-    flex: 1; /* Permette alla sezione dei contenuti di espandersi */
+    flex: 1; /* Allows content section to expand dynamically */
 }
 
 form input {
@@ -31,6 +39,7 @@ form input {
     padding: 10px;
 }
 
+/* Styling for Oscar search results */
 #oscarResults .winner-card {
     background-color: #f8f9fa;
     border: 1px solid #ddd;
@@ -55,7 +64,7 @@ form input {
     color: #666;
 }
 
-/* Badge per vincitori */
+/* Badge for Oscar winners */
 .winner-badge {
     position: absolute;
     top: 10px;
@@ -68,9 +77,10 @@ form input {
 }
 
 footer {
-    margin-top: auto; /* Spinge il footer verso il basso */
+    margin-top: auto; /* Ensures footer stays at the bottom */
 }
-/* Custom styles for movie page */
+
+/* Custom styles for movie details on the Oscar page */
 .text-primary {
     color: #28a745 !important;
 }

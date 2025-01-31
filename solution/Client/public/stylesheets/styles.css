@@ -1,62 +1,71 @@
-/* Stile personalizzato */
+/*
+ * Custom Stylesheet for the Film Website
+ *
+ * This stylesheet defines global styles for navigation, carousels, layout structure,
+ * typography, feature sections, and footer adjustments to ensure a consistent and
+ * visually appealing user interface.
+ */
+
+/* Navbar Styling */
 nav.navbar {
-    background-color: #343a40; /* Grigio più scuro */
+    background-color: #343a40; /* Dark gray background */
 }
 
 nav.navbar .nav-link {
-    font-size: 1.2rem; /* Testo più grande */
+    font-size: 1.2rem; /* Increases text size */
     text-align: center;
-    flex: 1; /* Distribuzione uniforme */
+    flex: 1; /* Ensures even distribution of navbar links */
 }
 
+/* Carousel Styling */
 .carousel {
-    margin-bottom: 40px;
+    margin-bottom: 40px; /* Adds spacing below carousel */
 }
 
 .carousel-control-prev,
 .carousel-control-next {
-    width: 5%; /* Dimensioni dei controlli */
-    opacity: 1; /* Assicurati che siano visibili */
+    width: 5%; /* Sets size for navigation controls */
+    opacity: 1; /* Ensures visibility */
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-    background-color: rgba(0, 0, 0, 0.5); /* Sfondo scuro per contrasto */
-    border-radius: 50%; /* Cerchio attorno all'icona */
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background for contrast */
+    border-radius: 50%; /* Circular shape for controls */
     width: 40px;
     height: 40px;
 }
 
 .carousel-control-prev:hover .carousel-control-prev-icon,
 .carousel-control-next:hover .carousel-control-next-icon {
-    background-color: rgba(0, 0, 0, 0.8); /* Sfondo più scuro al passaggio del mouse */
+    background-color: rgba(0, 0, 0, 0.8); /* Darker background on hover */
 }
 
+/* Movie Carousel Styling */
 #movieCarousel .carousel-inner img {
-    height: 400px; /* Set a fixed height */
-    width: 100%; /* Mantieni le immagini responsive */
-    object-fit: contain; /* Ensure the entire image is visible */
+    height: 400px; /* Fixed height for uniform display */
+    width: 100%; /* Ensures responsiveness */
+    object-fit: contain; /* Prevents image cropping */
     transition: transform 0.5s ease-in-out; /* Smooth transition effect */
-
 }
 
 #movieCarousel .carousel-item {
-    transition: transform 0.5s ease-in-out; /* Smooth transition effect */
+    transition: transform 0.5s ease-in-out; /* Smooth effect for slide transition */
 }
 
 #movieCarousel {
-    max-width: 300px; /* Further reduce the maximum width */
-    margin: 0 auto; /* Centra il carousel */
-    padding: 10px; /* Riduci lo spazio verticale attorno */
+    max-width: 300px; /* Reduces maximum width for compact design */
+    margin: 0 auto; /* Centers the carousel */
+    padding: 10px; /* Reduces vertical spacing */
 }
 
-
+/* Utility Classes */
 .hidden {
-    display: none;
+    display: none; /* Hides elements dynamically */
 }
 
-/* per essere sicuri che il footer sia sempre a fondo pagina*/
-html{
+/* Ensuring Footer Stays at the Bottom */
+html {
     height: 100%;
     margin: 0;
     display: flex;
@@ -73,61 +82,69 @@ body {
 }
 
 body > footer {
-    margin-top: auto;
+    margin-top: auto; /* Pushes the footer to the bottom when content is short */
 }
 
 footer {
-    margin-top: auto; /* Spinge il footer verso il basso */
+    margin-top: auto;
 }
 
-.features-titles h1{
+/* Typography for Feature Sections */
+.features-titles h1 {
     font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
     font-weight: 700;
-    color: #343a40; /* Colore scuro per il titolo */
+    color: #343a40; /* Dark color for titles */
 }
 
 .carousel-titles h1 {
     font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
     font-weight: 700;
-    color: #343a40; /* Colore scuro per il titolo */
+    color: #343a40; /* Dark color for titles */
 }
 
 .carousel-titles h2 {
     font-family: 'Raleway', sans-serif;
     font-size: 1.8rem;
     font-weight: 400;
-    color: #6c757d; /* Grigio chiaro per il sottotitolo */
+    color: #6c757d; /* Light gray for subtitles */
     margin-top: 10px;
 }
 
+/* Feature Section Styling */
 .feature-section {
     margin-top: 40px;
 }
+
 .feature-section .col-md-4 {
     margin-bottom: 30px;
 }
+
 .feature-section .card {
     border: none;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
 }
+
 .feature-section .card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px); /* Adds hover effect */
 }
+
 .feature-section img {
-    border-radius: 50%;
+    border-radius: 50%; /* Circular images for aesthetic appeal */
     width: 140px;
     height: 140px;
     object-fit: cover;
     margin-bottom: 15px;
 }
+
 .feature-section h2 {
     font-size: 1.5rem;
     margin-bottom: 10px;
 }
+
 .feature-section p {
     font-size: 1rem;
     color: #6c757d;

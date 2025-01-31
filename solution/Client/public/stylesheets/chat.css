@@ -1,11 +1,17 @@
-/* per essere sicuri che il footer sia sempre a fondo pagina*/
+/*
+ * Chat Page Footer Styling
+ *
+ * Ensures that the footer on the chat page is always positioned at the bottom,
+ * even when the chat content is not enough to fill the entire viewport.
+ */
+
 html, body {
-    height: 100%;
-    margin: 0;
+    height: 100%; /* Sets the full height for proper alignment */
+    margin: 0; /* Removes default margin to prevent unwanted spacing */
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Aligns elements in a column layout */
 }
 
 body > footer {
-    margin-top: auto;
+    margin-top: auto; /* Pushes the footer to the bottom when content is short */
 }

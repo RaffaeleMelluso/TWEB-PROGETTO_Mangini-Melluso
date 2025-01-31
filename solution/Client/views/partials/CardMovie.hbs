@@ -1,11 +1,35 @@
+<!--
+    Movie Card Template
+
+    This partial template renders a movie card component used across various pages.
+    It displays essential movie details, including title, release year, description,
+    rating, and an optional tagline. Users can navigate to the movie details page
+    by clicking the provided button.
+-->
+
 <div class="col-md-4">
     <div class="card mb-3">
+        <!-- Movie Poster -->
         <img src="{{image}}" class="card-img-top" alt="{{title}}">
+
         <div class="card-body">
+            <!-- Movie Title and Year -->
             <h5 class="card-title">{{title}} ({{year}})</h5>
+
+            <!-- Movie Description -->
             <p class="card-text">{{description}}</p>
+
+            <!-- Movie Rating -->
             <p class="card-text"><small class="text-muted">Rating: {{rating}}</small></p>
-            {{#if tagline}}{{tagline}}{{else}}Non disponibile{{/if}}
+
+            <!-- Tagline (if available) -->
+            {{#if tagline}}
+                <p class="card-text"><em>{{tagline}}</em></p>
+            {{else}}
+                <p class="card-text text-muted">Non disponibile</p>
+            {{/if}}
+
+            <!-- Button to View Movie Details -->
             <a href="/film/{{this.id}}" class="btn btn-primary mt-2">Visualizza Dettagli</a>
         </div>
     </div>

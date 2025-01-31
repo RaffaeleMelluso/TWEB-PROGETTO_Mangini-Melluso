@@ -1,32 +1,44 @@
-/* Custom styles for movie page */
+/*
+ * Movie Page Styles
+ *
+ * Custom styling for the movie detail pages.
+ * Defines colors, typography adjustments, and spacing to enhance readability
+ * and maintain visual consistency across movie-related sections.
+ */
+
+/* Primary text color adjustment */
 .text-primary {
-    color: #28a745 !important;
+    color: #28a745 !important; /* Green shade for primary elements */
 }
 
+/* Success text color adjustment */
 .text-success {
-    color: #28a745 !important;
+    color: #28a745 !important; /* Ensures consistency with primary green */
 }
 
+/* Informational text color adjustment */
 .text-info {
-    color: #17a2b8 !important;
+    color: #17a2b8 !important; /* Blue shade for informational elements */
 }
 
+/* Typography adjustments for better readability */
 .card-title {
-    font-size: 1.590rem; /* Reduced by 5% from 1.674rem */
+    font-size: 1.590rem; /* Reduced by 5% from 1.674rem for better proportion */
 }
 
 .card-text {
-    font-size: 1.148rem; /* Reduced by 5% from 1.209rem */
+    font-size: 1.148rem; /* Reduced by 5% from 1.209rem to maintain hierarchy */
 }
 
 h2 {
-    font-size: 2.474rem; /* Reduced by 5% from 2.604rem */
+    font-size: 2.474rem; /* Reduced by 5% from 2.604rem for consistent scaling */
 }
 
 p {
-    font-size: 1.237rem; /* Reduced by 5% from 1.302rem */
+    font-size: 1.237rem; /* Reduced by 5% from 1.302rem for uniform readability */
 }
 
+/* Styling for movie cards */
 .card {
-    margin-bottom: 2rem; /* Add margin between cards */
+    margin-bottom: 2rem; /* Adds spacing between movie cards for clarity */
 }

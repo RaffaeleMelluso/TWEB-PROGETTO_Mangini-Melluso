@@ -1,18 +1,34 @@
+/**
+ * Search Form Submission Handler
+ *
+ * This script manages the search functionality, allowing users to look up
+ * movies and related information based on user-provided criteria.
+ * The form submission triggers a request to the backend, retrieves matching
+ * results, and dynamically updates the page with search results.
+ */
+
 document.getElementById("searchForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
+    e.preventDefault(); // Prevents default form submission
     const name = document.getElementById("nameInput").value;
     const category = document.getElementById("categoryInput").value;
-    await updateSearchResults({ name: name, category: category });
+    await updateSearchResults({ name: name, category: category }); // Calls function to fetch and display results
 });
 
+/**
+ * Fetches search results from the backend and updates the page.
+ *
+ * @param {Object} filters - The search criteria containing name and category.
+ */
 async function updateSearchResults(filters) {
     const resultsDiv = document.getElementById("searchResults");
-    resultsDiv.innerHTML = "";
+    resultsDiv.innerHTML = ""; // Clears previous search results
 
     try {
+        // Sends a GET request to the search API endpoint with filters
         const response = await fetch('/search/searchtoolpage?name=' + filters.name + '&category=' + filters.category);
         const data = await response.json();
 
+        // Checks if results are found and dynamically generates result cards
         if (data.length > 0) {
             data.forEach(function (entry) {
                 const card = document.createElement("div");
@@ -34,10 +50,11 @@ async function updateSearchResults(filters) {
                 resultsDiv.appendChild(card);
             });
         } else {
-            resultsDiv.innerHTML = '<p class="text-center text-danger">Nessun dato trovato per i criteri specificati.</p>';
+            // Displays a message when no results match the search criteria
+            resultsDiv.innerHTML = '<p class="text-center text-danger">No results found for the specified criteria.</p>';
         }
     } catch (error) {
-        console.error('Errore nel caricamento dei dati:', error);
-        resultsDiv.innerHTML = '<p class="text-center text-danger">Errore durante il recupero dei dati.</p>';
+        console.error('Error fetching data:', error);
+        resultsDiv.innerHTML = '<p class="text-center text-danger">Error retrieving data.</p>';
     }
 }

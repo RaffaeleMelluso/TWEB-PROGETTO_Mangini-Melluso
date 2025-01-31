@@ -1,3 +1,12 @@
+/**
+ * Oscar Search Functionality
+ *
+ * This script enables users to search for Oscar nominees and winners
+ * by filtering results based on year and name.
+ * It interacts with the backend endpoint `/oscar/searchtool` to fetch
+ * and display relevant data dynamically on the webpage.
+ */
+
 document.getElementById("filterForm").addEventListener("submit", async function (e) {
     e.preventDefault();
     const year = document.getElementById("yearInput").value;
@@ -5,13 +14,20 @@ document.getElementById("filterForm").addEventListener("submit", async function 
     await updateOscarResults({ year: year, name: name });
 });
 
+/**
+ * Fetches and updates the Oscar results based on the provided filters.
+ *
+ * @param {Object} filters - The filter criteria containing year and name.
+ */
 async function updateOscarResults(filters) {
     const resultsDiv = document.getElementById("oscarResults");
-    resultsDiv.innerHTML = "";
+    resultsDiv.innerHTML = '<p class="text-center text-info">Caricamento in corso...</p>'; // Loading message
 
     try {
         const response = await fetch('/oscar/searchtool?year=' + filters.year + '&name=' + filters.name);
         const data = await response.json();
+
+        resultsDiv.innerHTML = ""; // Clear previous content after fetching
 
         if (data.length > 0) {
             data.forEach(function (entry) {
@@ -30,6 +46,6 @@ async function updateOscarResults(filters) {
         }
     } catch (error) {
         console.error('Errore nel caricamento dei dati:', error);
-        resultsDiv.innerHTML = '<p class="text-center text-danger">Errore durante il recupero dei dati.</p>';
+        resultsDiv.innerHTML = '<p class="text-center text-danger">Errore durante il recupero dei dati. Verifica la connessione o riprova più tardi.</p>';
     }
 }

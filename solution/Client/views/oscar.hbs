@@ -1,17 +1,34 @@
+<!--
+    Oscar Awards Page
+
+    This template renders the Oscar Awards search page, allowing users to filter
+    Oscar winners by year and name. The results are dynamically fetched
+    and displayed using JavaScript.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oscar Awards</title>
+
+    <!-- Bootstrap for responsive styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom stylesheet for Oscar Awards page -->
     <link rel="stylesheet" href="stylesheets/oscar.css">
 </head>
 <body>
+
+<!-- Navigation Bar -->
 {{> navbar}}
 
 <div class="container my-5">
+    <!-- Page Header -->
     <h1 class="text-center">Oscar Awards</h1>
+
+    <!-- Search Form: Filters Oscar winners by year and name -->
     <form id="filterForm" class="my-4">
         <div class="mb-3">
             <label for="yearInput" class="form-label">Anno</label>
@@ -23,10 +40,14 @@
         </div>
         <button type="submit" class="btn btn-primary">Cerca</button>
     </form>
+
+    <!-- Search Results Container: Displays filtered Oscar winners -->
     <div id="oscarResults" class="row"></div>
 </div>
 
 {{> footer}}
+
+<!-- Bootstrap JavaScript for interactive components -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/javascripts/oscar.js"></script>
 </body>

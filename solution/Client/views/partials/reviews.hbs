@@ -1,22 +1,41 @@
+<!--
+    Reviews Section
+
+    This partial template displays user and critic reviews for a movie.
+    Each review includes the critic's name, review date, score percentage,
+    and content. If the reviewer is a "Top Critic," a badge is displayed.
+
+    If no reviews are available, a placeholder message is shown.
+-->
+
 <div class="container my-5">
     <h2>Reviews</h2>
+
+    <!-- Check if there are any reviews available -->
     {{#if reviews.length}}
         {{#each reviews}}
             <div class="card mb-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
+                        <!-- Critic Name with Link to Rotten Tomatoes -->
                         <h6 class="card-title">
                             <a href="https://www.rottentomatoes.com/{{rotten_tomatoes_link}}" target="_blank">{{critic_name}}</a>
                             {{#if top_critic}}<span class="badge bg-success">Top Critic</span>{{/if}}
                         </h6>
+
+                        <!-- Review Date -->
                         <p class="card-text"><strong>Date:</strong> {{review_date}}</p>
                     </div>
+
                     <div class="d-flex">
+                        <!-- Review Score Percentage -->
                         <div class="me-3">
                             <p class="card-text" style="font-size: 1.5rem;">
                                 <strong>{{#if review_score_percentage}}{{review_score_percentage}}%{{else}}N/A{{/if}}</strong>
                             </p>
                         </div>
+
+                        <!-- Review Content -->
                         <p class="card-text" style="font-size: 1.3rem;">
                             {{#if review_content}}{{review_content}}{{else}}No review content available.{{/if}}
                         </p>
@@ -25,6 +44,7 @@
             </div>
         {{/each}}
     {{else}}
+        <!-- Placeholder message when no reviews are available -->
         <p class="text-muted">No reviews available for this movie.</p>
     {{/if}}
 </div>

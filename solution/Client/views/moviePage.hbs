@@ -1,17 +1,44 @@
+<!--
+    Movie Page Template
+
+    This template renders a detailed movie page, displaying essential information
+    about a selected film, including its title, description, and reviews.
+
+    The page consists of:
+    - A navigation bar (included via partials)
+    - A movie details section (loaded from a separate partial)
+    - A reviews section, dynamically populated with user reviews
+    - A footer section for consistency across the site
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
+
+    <!-- Bootstrap for responsive styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom stylesheet for movie details page -->
     <link rel="stylesheet" href="/stylesheets/movies.css">
 </head>
 <body>
+
+<!-- Navigation Bar -->
 {{> navbar}}
+
+<!-- Movie Details Section -->
 {{> movie}}
+
+<!-- Reviews Section: Displays user and critic reviews -->
 {{> reviews reviews=movie.reviews}}
+
+<!-- Footer Section -->
 {{> footer}}
+
+<!-- JavaScript file for handling review submissions -->
 <script src="/javascripts/review.js"></script>
 </body>
 </html>

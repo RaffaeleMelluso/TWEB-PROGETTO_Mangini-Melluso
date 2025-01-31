@@ -1,15 +1,29 @@
+<!--
+    Search Form Partial
+
+    This partial template renders a search form for users to find movies.
+    It includes fields for entering a movie name and category, and dynamically
+    updates search results.
+-->
+
 <div class="container my-5">
     <h1 class="text-center">Cerca Film</h1>
+
+    <!-- Movie search form -->
     <form id="searchForm" class="my-4">
         <div class="mb-3">
             <label for="nameInput" class="form-label">Nome del Film</label>
             <input type="text" id="nameInput" class="form-control" placeholder="Inserisci il nome del film">
         </div>
+
         <div class="mb-3">
             <label for="categoryInput" class="form-label">Categoria</label>
             <input type="text" id="categoryInput" class="form-control" placeholder="Inserisci la categoria">
         </div>
+
         <button type="submit" class="btn btn-primary">Cerca</button>
     </form>
+
+    <!-- Search results container -->
     <div id="searchResults" class="row"></div>
 </div>
