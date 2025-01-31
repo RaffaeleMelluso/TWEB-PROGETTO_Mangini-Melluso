@@ -24,6 +24,11 @@ exports.init = function(io) {
                     if (!role) role = 'Utente'; // Default role assignment
                     socket.join(room); // Joins the specified chat room
                     chat.to(room).emit('joined', room, userId, role); // Notifies all users in the room
+                    // Save the room to the list of available rooms if it's a new custom room
+                    if (!['Film Italiani', 'Ultime Uscite', 'Premiazioni', 'Attori', 'Generale', 'Fun Facts'].includes(room)) {
+                        // Logic to save the new room (e.g., in a database or in-memory list)
+                        console.log(`New custom room created: ${room}`);
+                    }
                 });
 
                 /**

@@ -62,13 +62,14 @@ function sendChatText() {
  * Connects the user to a specified chat room and assigns a unique identifier.
  */
 function connectToRoom() {
-    roomNo = document.getElementById('roomNo').value;
+    const predefinedRoom = document.getElementById('predefinedRoom').value;
+    const customRoomName = document.getElementById('roomName').value;
+    roomNo = predefinedRoom || customRoomName || document.getElementById('roomNo').value;
     name = document.getElementById('name').value;
     role = document.getElementById('role').value;
     if (!name) name = 'Unknown-' + Math.random();
-    chat.emit('create or join', roomNo, name);
+    chat.emit('create or join', roomNo, name, role);
 }
-
 /**
  * Writes a message to the chat history.
  */
